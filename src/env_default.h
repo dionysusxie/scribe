@@ -68,6 +68,19 @@ const std::string scribeversion("2.2");
   }
 
 
+extern int debug_level;
+#define LOG_DEBUG(format_string,...) \
+  { \
+    if (debug_level) {                        \
+    time_t now; \
+    char dbgtime[26]; \
+    time(&now); \
+    ctime_r(&now, dbgtime); \
+    dbgtime[24] = '\0'; \
+    fprintf(stderr,"[%s] " #format_string " \n", dbgtime,##__VA_ARGS__); \
+    } \
+  }
+
 namespace scribe {
 
 /*

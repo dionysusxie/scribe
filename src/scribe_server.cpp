@@ -21,6 +21,7 @@
 // @author Avinash Lakshman
 // @author Anthony Giardullo
 
+int debug_level = 0;
 #include "common.h"
 #include "scribe_server.h"
 
@@ -76,9 +77,10 @@ int main(int argc, char **argv) {
     }
 
     int next_option;
-    const char* const short_options = "hp:c:";
+    const char* const short_options = "hdp:c:";
     const struct option long_options[] = {
       { "help",   0, NULL, 'h' },
+      { "debug",  0, NULL, 'd' },
       { "port",   0, NULL, 'p' },
       { "config", 0, NULL, 'c' },
       { NULL,     0, NULL, 'o' },
@@ -92,6 +94,9 @@ int main(int argc, char **argv) {
       case 'h':
         print_usage(argv[0]);
         exit(0);
+      case 'd':
+        debug_level = 1
+        break;
       case 'c':
         config_file = optarg;
         break;
@@ -100,6 +105,8 @@ int main(int argc, char **argv) {
         break;
       }
     }
+
+    LOG_DEBUG("DEBUG: Scribe started in debug mode");    
 
     // assume a non-option arg is a config file name
     if (optind < argc && config_file.empty()) {
