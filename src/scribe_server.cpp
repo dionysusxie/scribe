@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
         print_usage(argv[0]);
         exit(0);
       case 'd':
-        debug_level = 1
+        debug_level = 1;
         break;
       case 'c':
         config_file = optarg;
