@@ -13,7 +13,7 @@
 using namespace std;
 
 HdfsFile::HdfsFile(const std::string& name) : FileInterface(name, false), inputBuffer_(NULL), bufferSize_(0) {
-  LOG_OPER("[hdfs] Connecting to HDFS for %s", name.c_str());
+  LOG_DEBUG("[hdfs] Connecting to HDFS for %s", name.c_str());
 
   // First attempt to parse the hdfs cluster from the path name specified.
   // If it fails, then use the default hdfs cluster.
@@ -29,9 +29,9 @@ HdfsFile::HdfsFile(const std::string& name) : FileInterface(name, false), inputB
 
 HdfsFile::~HdfsFile() {
   if (fileSys) {
-    LOG_OPER("[hdfs] disconnecting fileSys for %s", filename.c_str());
+    LOG_DEBUG("[hdfs] disconnecting fileSys for %s", filename.c_str());
     hdfsDisconnect(fileSys);
-    LOG_OPER("[hdfs] disconnected fileSys for %s", filename.c_str());
+    LOG_DEBUG("[hdfs] disconnected fileSys for %s", filename.c_str());
   }
   fileSys = 0;
   hfile = 0;
@@ -45,7 +45,7 @@ bool HdfsFile::openRead() {
     hfile = hdfsOpenFile(fileSys, filename.c_str(), O_RDONLY, 0, 0, 0);
   }
   if (hfile) {
-    LOG_OPER("[hdfs] opened for read %s", filename.c_str());
+    LOG_DEBUG("[hdfs] opened for read %s", filename.c_str());
     return true;
   }
   return false;
@@ -73,9 +73,9 @@ bool HdfsFile::openWrite() {
   hfile = hdfsOpenFile(fileSys, filename.c_str(), flags, 0, 0, 0);
   if (hfile) {
     if (flags & O_APPEND) {
-      LOG_OPER("[hdfs] opened for append %s", filename.c_str());
+      LOG_DEBUG("[hdfs] opened for append %s", filename.c_str());
     } else {
-      LOG_OPER("[hdfs] opened for write %s", filename.c_str());
+      LOG_DEBUG("[hdfs] opened for write %s", filename.c_str());
     }
     return true;
   }
@@ -83,7 +83,7 @@ bool HdfsFile::openWrite() {
 }
 
 bool HdfsFile::openTruncate() {
-  LOG_OPER("[hdfs] truncate %s", filename.c_str());
+  LOG_DEBUG("[hdfs] truncate %s", filename.c_str());
   deleteFile();
   return openWrite();
 }
@@ -96,15 +96,15 @@ bool HdfsFile::isOpen() {
 void HdfsFile::close() {
   if (fileSys) {
     if (hfile) {
-      LOG_OPER("[hdfs] closing %s", filename.c_str());
+      LOG_DEBUG("[hdfs] closing %s", filename.c_str());
       hdfsCloseFile(fileSys, hfile );
     }
     hfile = 0;
 
     // Close the file system
-    LOG_OPER("[hdfs] disconnecting fileSys for %s", filename.c_str());
+    LOG_DEBUG("[hdfs] disconnecting fileSys for %s", filename.c_str());
     hdfsDisconnect(fileSys);
-    LOG_OPER("[hdfs] disconnected fileSys for %s", filename.c_str());
+    LOG_DEBUG("[hdfs] disconnected fileSys for %s", filename.c_str());
     fileSys = 0;
   }
 }
@@ -146,7 +146,7 @@ void HdfsFile::deleteFile() {
   if (fileSys) {
     hdfsDelete(fileSys, filename.c_str());
   }
-  LOG_OPER("[hdfs] deleteFile %s", filename.c_str());
+  LOG_DEBUG("[hdfs] deleteFile %s", filename.c_str());
 }
 
 void HdfsFile::listImpl(const std::string& path,
@@ -197,7 +197,7 @@ bool HdfsFile::createDirectory(std::string path) {
  * normal file and write the symlink data into it
  */
 bool HdfsFile::createSymlink(std::string oldpath, std::string newpath) {
-  LOG_OPER("[hdfs] Creating symlink oldpath %s newpath %s",
+  LOG_DEBUG("[hdfs] Creating symlink oldpath %s newpath %s",
            oldpath.c_str(), newpath.c_str());
   HdfsFile* link = new HdfsFile(newpath);
   if (link->openWrite() == false) {
@@ -251,9 +251,9 @@ hdfsFS HdfsFile::connectToPath(const char* uri) {
   memcpy((char*) host, uri, colon - uri);
   host[colon - uri] = '\0';
  
-  LOG_OPER("[hdfs] Before hdfsConnectNewInstance(%s, %li)", host, port);
+  LOG_DEBUG("[hdfs] Before hdfsConnectNewInstance(%s, %li)", host, port);
   hdfsFS fs = hdfsConnectNewInstance(host, port);
-  LOG_OPER("[hdfs] After hdfsConnectNewInstance");
+  LOG_DEBUG("[hdfs] After hdfsConnectNewInstance");
   free(host);
   return fs;
 }

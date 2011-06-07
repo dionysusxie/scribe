@@ -301,8 +301,8 @@ scribeConn::send(boost::shared_ptr<logentry_vector_t> messages) {
 
     if (result == OK) {
       g_Handler->incCounter("sent", size);
-      // LOG_OPER("Successfully sent <%d> messages to remote scribe server %s",
-      //     size, connectionString().c_str());
+      LOG_DEBUG("Successfully sent <%d> messages to remote scribe server %s",
+          size, connectionString().c_str());
       return (CONN_OK);
     }
     fatal = false;
