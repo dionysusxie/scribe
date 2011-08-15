@@ -55,7 +55,7 @@ const std::string scribeversion("2.2");
  */
 
 /*
- * Debug logging
+ * Logging
  */
 #define LOG_OPER(format_string,...)                                     \
   {                                                                     \
