@@ -5,12 +5,14 @@
 #define LOG_DEFAULT_FILE_BASENAME	"log"
 #define LOG_DEFAULT_FILE_SUFFIX		""		// no suffix by default
 #define LOG_DEFAULT_LOGLEVEL		0
+#define LOG_DEFAULT_FLUSH_NUM		1
 
 #define TEXT_LOG_DESTINATION		"log_desti"
 #define TEXT_LOG_LEVEL				"log_level"
 #define TEXT_LOG_FILE_PATH			"file_path"
 #define TEXT_LOG_FILE_BASE_NAME		"file_base_name"
 #define TEXT_LOG_FILE_SUFFIX		"file_suffix"
+#define TEXT_LOG_FLUSH_NUM			"num_logs_to_flush"
 
 
 bool LOG_SYS_INIT(const string& config_file) {
@@ -34,7 +36,7 @@ void LOG_OUT(const string& log, const unsigned long level) {
 
 boost::shared_ptr<LogSys> LogSys::s_pLogSys;
 
-bool LogSys::initialize(const string& config_file) throw (runtime_error) {
+bool LogSys::initialize(const string& config_file) {
 
 	try{
 
@@ -60,6 +62,8 @@ boost::shared_ptr<LogSys> LogSys::getInstance() {
 }
 
 LogSys::LogSys(const string& config_file) throw (runtime_error) {
+
+	LOG_TO_STDERR("[LOG] Opening file <%s> to get log config...", config_file.c_str());
 
 	if( ! m_LogConfig.parseConfig(config_file) ) {
 		runtime_error ex("[LOG] Failed to read the log config file!");
@@ -126,11 +130,15 @@ boost::shared_ptr<Logger> Logger::createLoggerInterface(const ENUM_LOG_TYPE type
 
 // constructor
 Logger::Logger():
-	m_Level(LOG_DEFAULT_LOGLEVEL) {
+	m_Level(LOG_DEFAULT_LOGLEVEL),
+	m_MaxFlushNum(LOG_DEFAULT_FLUSH_NUM),
+	m_NotFlushedNum(0) {
 }
 
-Logger::Logger(const unsigned long level):
-	m_Level(level) {
+Logger::Logger(const unsigned long level, const unsigned long flush_num):
+	m_Level(level),
+	m_MaxFlushNum(flush_num),
+	m_NotFlushedNum(0) {
 }
 
 // destructor
@@ -138,23 +146,18 @@ Logger::~Logger() {
 }
 
 bool Logger::config(const LogConfig& conf) {
-	return conf.getUnsigned(TEXT_LOG_LEVEL, m_Level);
+	conf.getUnsigned(TEXT_LOG_LEVEL, m_Level);
+	conf.getUnsigned(TEXT_LOG_FLUSH_NUM, m_MaxFlushNum);
+
+	return true;
 }
 
 bool Logger::log(const std::string& msg, const unsigned long level) {
 
-	try {
-		if (level >= this->m_Level)
-			return logImpl(msg, level);
-		else
-			return false;
-	}
-	catch (std::exception& ex) {
-		LOG_TO_STDERR("[LOG] Exception catched in Logger::log(): %s", ex.what());
+	if (level >= this->m_Level)
+		return logImpl(msg, level);
+	else
 		return false;
-	}
-
-	return false;
 }
 
 unsigned long Logger::getLevel() const {
@@ -175,8 +178,12 @@ FileLogger::FileLogger():	// set the default value
 	m_FileFullName = getFullFileName();
 }
 
-FileLogger::FileLogger(const string& path, const string& base_name, const string& suffix, const unsigned long level):
-	Logger(level),
+FileLogger::FileLogger(const string& path,
+		const string& base_name,
+		const string& suffix,
+		const unsigned long level,
+		const unsigned long flush_num):
+	Logger(level, flush_num),
 	m_FilePath(path),
 	m_FileBaseName(base_name),
 	m_FileSuffix(suffix) {
@@ -247,17 +254,27 @@ bool FileLogger::close() {
 
 bool FileLogger::logImpl(const std::string& msg, const unsigned long level) {
 
-	// lock first, it will unlock automaticlly when this function return
-	scoped_lock<interprocess_recursive_mutex> lock(m_Mutex);
+	try{
+		// lock first, it will unlock automaticlly when this function return
+		scoped_lock<interprocess_recursive_mutex> lock(m_Mutex);
 
-	if (!m_File.is_open())
+		if (!m_File.is_open())
+			return false;
+
+		m_File << msg;
+
+		Logger::m_NotFlushedNum++;
+		if( Logger::m_NotFlushedNum >= Logger::m_MaxFlushNum ) {
+			m_File.flush();
+			Logger::m_NotFlushedNum = 0;
+		}
+
+		return !m_File.bad();
+	}
+	catch (std::exception& ex) {
+		LOG_TO_STDERR("[LOG] Exception: %s", ex.what());
 		return false;
-
-	m_File << msg;
-	m_File.flush();
-
-	if (m_File.bad())
-		return false;
+	}
 
 	return true;
 }
@@ -346,7 +363,7 @@ bool RollingFileLogger::open() {
 	getCurrentDate( &m_LastCreatedTime );
 	string file_name = getFileNameByDate(m_LastCreatedTime);
 
-	m_pFileLogger = boost::shared_ptr<FileLogger>( new FileLogger(m_FilePath, file_name, m_FileSuffix, getLevel()) );
+	m_pFileLogger = boost::shared_ptr<FileLogger>( new FileLogger(m_FilePath, file_name, m_FileSuffix, getLevel(), Logger::m_MaxFlushNum) );
 	if( NULL == m_pFileLogger ) {
 		LOG_TO_STDERR("[LOG] Creating FileLogger failed! In RollingFileLogger::open()");
 		return false;
@@ -363,17 +380,24 @@ bool RollingFileLogger::close() {
 }
 
 bool RollingFileLogger::logImpl(const std::string& msg, const unsigned long level) {
+	try{
+		// lock first, it will unlock automaticlly when this function return
+		scoped_lock<interprocess_recursive_mutex> lock(m_Mutex);
 
-	// lock first, it will unlock automaticlly when this function return
-	scoped_lock<interprocess_recursive_mutex> lock(m_Mutex);
+		// create a new file when a day passed
+		if( m_LastCreatedTime.tm_mday != getCurrentDate().tm_mday ) {
+			rotateFile();
+		}
 
-	// create a new file when a day passed
-	if( m_LastCreatedTime.tm_mday != getCurrentDate().tm_mday ) {
-		rotateFile();
+		if( m_pFileLogger )
+			return m_pFileLogger->log(msg, level);
+		else
+			return false;
 	}
-
-	if( m_pFileLogger )
-		m_pFileLogger->log(msg, level);
+	catch (std::exception& ex) {
+		LOG_TO_STDERR("[LOG] Exception: %s", ex.what());
+		return false;
+	}
 
 	return true;
 }

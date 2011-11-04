@@ -17,7 +17,7 @@ using namespace boost;
 using namespace std;
 
 
-// log to the stand error output
+// log to the stand error
 #define LOG_TO_STDERR(format_string,...)                             	\
 {                                                                     	\
     time_t now;                                                         \
@@ -44,7 +44,7 @@ class Logger;
 class LogSys {
 public:
 	// static methods:
-    static bool initialize(const string& config_file) throw (runtime_error);
+    static bool initialize(const string& config_file);
     static boost::shared_ptr<LogSys> getInstance();
 
     virtual ~LogSys();
@@ -71,7 +71,7 @@ public:
 
     // constructor
     Logger();
-    Logger(const unsigned long level);
+    Logger(const unsigned long level, const unsigned long flush_num);
 
     virtual ~Logger();
 
@@ -86,6 +86,8 @@ protected:
     virtual bool logImpl(const std::string& msg, const unsigned long level) = 0;
 
     unsigned long m_Level;
+	unsigned long m_MaxFlushNum;
+	unsigned long m_NotFlushedNum;
 };
 
 
@@ -95,7 +97,7 @@ protected:
 class FileLogger: public Logger {
 public:
     FileLogger();
-    FileLogger(const string& path, const string& base_name, const string& suffix, const unsigned long level);
+    FileLogger(const string& path, const string& base_name, const string& suffix, const unsigned long level, const unsigned long flush_num);
     virtual ~FileLogger();
 
     virtual bool config(const LogConfig& conf);
