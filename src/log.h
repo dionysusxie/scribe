@@ -38,7 +38,7 @@ enum ENUM_LOG_TYPE {
 
 bool LOG_SYS_INIT(const string& log_config_file);
 void LOG_OUT(const string& log, const unsigned long level);
-
+void LOG_SYS_TEST(const unsigned thread_num, const unsigned long logs_per_thread);
 
 class Logger;
 class LogSys {
@@ -97,7 +97,13 @@ protected:
 class FileLogger: public Logger {
 public:
     FileLogger();
-    FileLogger(const string& path, const string& base_name, const string& suffix, const unsigned long level, const unsigned long flush_num);
+    FileLogger(const string& path,
+    		const string& base_name,
+    		const string& suffix,
+    		const unsigned long level,
+    		const unsigned long flush_num,
+    		const bool thread_safe );
+
     virtual ~FileLogger();
 
     virtual bool config(const LogConfig& conf);
@@ -111,15 +117,16 @@ protected:
 private:
     FileLogger(const FileLogger& rhs);
     const FileLogger& operator=(const FileLogger& rhs);
+    bool writeLog(const std::string& msg, const unsigned long level);
 
     std::string m_FilePath;
     std::string m_FileBaseName;
     std::string m_FileSuffix;
 
-    std::string m_FileFullName;
-	std::fstream m_File;
+    std::fstream m_File;
 
-	interprocess_recursive_mutex m_Mutex; // the mutex
+    const bool m_IsThreadSafe;				// true by default
+	interprocess_recursive_mutex m_Mutex;  	// the mutex
 };
 
 
@@ -164,7 +171,7 @@ private:
     RollingFileLogger(const RollingFileLogger& rhs);
     const RollingFileLogger& operator=(const RollingFileLogger& rhs);
 
-    struct tm getCurrentDate(struct tm* date = NULL);
+    void getCurrentDate(struct tm& date);
     string getFileNameByDate(const struct tm& date);
 
     std::string m_FilePath;

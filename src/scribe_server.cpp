@@ -46,7 +46,8 @@ shared_ptr<scribeHandler> g_Handler;
 static string overall_category = "scribe_overall";
 static string log_separator = ":";
 
-bool LOG_SYS_INIT(const string&);
+extern bool LOG_SYS_INIT(const string&);
+extern void LOG_SYS_TEST(const unsigned thread_num, const unsigned long logs_per_thread);
 
 void print_usage(const char* program_name) {
   cout << "Usage: " << program_name << " [-p port] [-c config_file] [-l log_config_file]" << endl;
@@ -112,6 +113,10 @@ int main(int argc, char **argv) {
     if( !LOG_SYS_INIT(log_config_file) ) {
     	return -1;
     }
+
+    // test the log system with multi-threads
+    LOG_SYS_TEST(5, 1000000);
+    return -1;
 
     // It's placed here because the log service isn't ready until now! by XL
     /* Increase number of fds */
