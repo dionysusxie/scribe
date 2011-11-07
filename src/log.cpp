@@ -15,8 +15,6 @@
 #define TEXT_LOG_FILE_SUFFIX		"file_suffix"
 #define TEXT_LOG_FLUSH_NUM			"num_logs_to_flush"
 
-#define LOG_TEST_TEXT				"This is a test message from Dionysus Xie in Shanghai.\n"
-
 
 bool LOG_SYS_INIT(const string& config_file) {
 	string f(config_file);
@@ -30,75 +28,6 @@ bool LOG_SYS_INIT(const string& config_file) {
 void LOG_OUT(const string& log, const unsigned long level) {
 	if (LogSys::getInstance() != NULL)
 		LogSys::getInstance()->log(log, level);
-}
-
-void* thread_func(void *pLoops) {
-
-	const unsigned long loops = (unsigned long)pLoops;
-
-	LOG_TO_STDERR("thread begin, LOOPS = %lu", loops);
-
-	for(unsigned long i = 0; i < loops; i++) {
-		LOG_OUT(LOG_TEST_TEXT, ~0);	// this msg has the highest level
-	}
-
-	LOG_TO_STDERR("thread returned!");
-
-	return NULL;
-}
-
-void LOG_SYS_TEST(const unsigned thread_num, const unsigned long logs_per_thread) {
-
-	static pthread_t pThreads[10];
-
-	const unsigned max_thread_num = sizeof(pThreads) / sizeof(pThreads[0]);
-	unsigned _num = thread_num;
-
-	if( _num > max_thread_num )
-		_num = max_thread_num;
-
-	const unsigned long total_num = logs_per_thread * _num;
-
-	std::string text(LOG_TEST_TEXT);
-	const unsigned long total_bytes = text.size() * total_num;
-
-	LOG_TO_STDERR("[LOG TEST] test begin, thread number: %u, logs per thread: %lu", _num, logs_per_thread);
-
-	struct timeval start, stop, diff;
-
-	// get the starting time
-	gettimeofday(&start, NULL);
-
-	LOG_TO_STDERR("[LOG TEST] Start time, seconds: %ld, micro seconds: %ld", start.tv_sec, start.tv_usec);
-
-	// create the threads and start them
-	for(unsigned i = 0; i < _num; i++) {
-	    pthread_create(&pThreads[i], NULL, thread_func, (void*)logs_per_thread);
-	}
-
-	// wait until all the threads return
-	for(unsigned i = 0; i < _num; i++) {
-		pthread_join(pThreads[i], NULL);
-	}
-
-	// get the ending time
-	gettimeofday(&stop, NULL);
-
-	// calculate the time used
-	diff.tv_sec = stop.tv_sec - start.tv_sec;
-	diff.tv_usec = stop.tv_usec - start.tv_usec;
-	if(diff.tv_usec < 0) {
-		diff.tv_sec--;
-		diff.tv_usec += 1000000;
-	}
-
-	const double sec_used = diff.tv_sec + diff.tv_usec * 1.0 / 1000000;
-	long logs_per_sec = total_num / sec_used;
-
-	LOG_TO_STDERR("[LOG TEST] End   time, seconds: %ld, microseconds: %ld", stop.tv_sec,  stop.tv_usec);
-	LOG_TO_STDERR("[LOG TEST] Used  time, seconds: %ld, microseconds: %ld", diff.tv_sec,  diff.tv_usec);
-	LOG_TO_STDERR("[LOG TEST] Logs  per second: %ld", logs_per_sec);
-	LOG_TO_STDERR("[LOG TEST] KB    per second: %ld", long(total_bytes / sec_used / 1024) );
 }
 
 

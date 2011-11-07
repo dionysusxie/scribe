@@ -38,7 +38,6 @@ enum ENUM_LOG_TYPE {
 
 bool LOG_SYS_INIT(const string& log_config_file);
 void LOG_OUT(const string& log, const unsigned long level);
-void LOG_SYS_TEST(const unsigned thread_num, const unsigned long logs_per_thread);
 
 class Logger;
 class RollingFileLogger;
