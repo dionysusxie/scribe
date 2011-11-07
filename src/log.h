@@ -41,6 +41,8 @@ void LOG_OUT(const string& log, const unsigned long level);
 void LOG_SYS_TEST(const unsigned thread_num, const unsigned long logs_per_thread);
 
 class Logger;
+class RollingFileLogger;
+
 class LogSys {
 public:
 	// static methods:
@@ -83,7 +85,7 @@ public:
     unsigned long getLevel() const;
     
 protected:
-    virtual bool logImpl(const std::string& msg, const unsigned long level) = 0;
+    virtual bool logImpl(const std::string& msg) = 0;
 
     unsigned long m_Level;
 	unsigned long m_MaxFlushNum;
@@ -96,6 +98,9 @@ protected:
 //
 class FileLogger: public Logger {
 public:
+
+	friend class RollingFileLogger;
+
     FileLogger();
     FileLogger(const string& path,
     		const string& base_name,
@@ -111,13 +116,13 @@ public:
     virtual bool close();
 
 protected:
-    virtual bool logImpl(const std::string& msg, const unsigned long level);
+    virtual bool logImpl(const std::string& msg);
     std::string getFullFileName() const;
 
 private:
     FileLogger(const FileLogger& rhs);
     const FileLogger& operator=(const FileLogger& rhs);
-    bool writeLog(const std::string& msg, const unsigned long level);
+    bool writeLog(const std::string& msg);
 
     std::string m_FilePath;
     std::string m_FileBaseName;
@@ -125,7 +130,7 @@ private:
 
     std::fstream m_File;
 
-    const bool m_IsThreadSafe;				// true by default
+    const bool m_IsThreadSafe;
 	interprocess_recursive_mutex m_Mutex;  	// the mutex
 };
 
@@ -143,7 +148,7 @@ public:
     virtual bool close();
 
 protected:
-    virtual bool logImpl(const std::string& msg, const unsigned long level);
+    virtual bool logImpl(const std::string& msg);
 
 private:
     StdErrLogger(const StdErrLogger& rhs);
@@ -164,7 +169,7 @@ public:
     virtual bool close();
 
 protected:
-    virtual bool logImpl(const std::string& msg, const unsigned long level);
+    virtual bool logImpl(const std::string& msg);
     void rotateFile();
 
 private:

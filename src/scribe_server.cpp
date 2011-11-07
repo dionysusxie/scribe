@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
     }
 
     // test the log system with multi-threads
-    LOG_SYS_TEST(5, 1000000);
+    LOG_SYS_TEST(5, 300000);
     return -1;
 
     // It's placed here because the log service isn't ready until now! by XL

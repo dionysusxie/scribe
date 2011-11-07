@@ -15,7 +15,7 @@
 #define TEXT_LOG_FILE_SUFFIX		"file_suffix"
 #define TEXT_LOG_FLUSH_NUM			"num_logs_to_flush"
 
-#define LOG_TEST_TEXT				"This is a test message from Shanghai.\n"
+#define LOG_TEST_TEXT				"This is a test message from Dionysus Xie in Shanghai.\n"
 
 
 bool LOG_SYS_INIT(const string& config_file) {
@@ -227,7 +227,7 @@ bool Logger::config(const LogConfig& conf) {
 bool Logger::log(const std::string& msg, const unsigned long level) {
 
 	if (level >= this->m_Level)
-		return logImpl(msg, level);
+		return logImpl(msg);
 	else
 		return false;
 }
@@ -321,17 +321,17 @@ bool FileLogger::close() {
 	return true;
 }
 
-bool FileLogger::logImpl(const std::string& msg, const unsigned long level) {
+bool FileLogger::logImpl(const std::string& msg) {
 	try{
 
 		if( m_IsThreadSafe ) {
 			// lock first, it will unlock automaticlly when this function return
 			scoped_lock<interprocess_recursive_mutex> lock(m_Mutex);
 
-			return writeLog(msg, level);
+			return writeLog(msg);
 		}
 		else {
-			return writeLog(msg, level);
+			return writeLog(msg);
 		}
 	}
 	catch (std::exception& ex) {
@@ -365,7 +365,7 @@ std::string FileLogger::getFullFileName() const {
 	return full_name;
 }
 
-bool FileLogger::writeLog(const std::string& msg, const unsigned long level) {
+bool FileLogger::writeLog(const std::string& msg) {
 	if (!m_File.is_open())
 		return false;
 
@@ -405,7 +405,7 @@ bool StdErrLogger::close() {
 	return true;
 }
 
-bool StdErrLogger::logImpl(const std::string& msg, const unsigned long level) {
+bool StdErrLogger::logImpl(const std::string& msg) {
 	fprintf(stderr, "%s", msg.c_str());
 	return true;
 }
@@ -457,7 +457,7 @@ bool RollingFileLogger::close() {
 	return true;
 }
 
-bool RollingFileLogger::logImpl(const std::string& msg, const unsigned long level) {
+bool RollingFileLogger::logImpl(const std::string& msg) {
 
 	try{
 		// lock first, it will unlock automaticlly when this function return
@@ -471,7 +471,7 @@ bool RollingFileLogger::logImpl(const std::string& msg, const unsigned long leve
 		}
 
 		if( m_pFileLogger )
-			return m_pFileLogger->log(msg, level);
+			return m_pFileLogger->logImpl(msg);
 		else
 			return false;
 	}
