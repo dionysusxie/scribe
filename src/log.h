@@ -25,7 +25,7 @@ using namespace std;
     time(&now);                                                         \
     ctime_r(&now, dbgtime);                                             \
     dbgtime[24] = '\0';                                                 \
-    fprintf(stderr,"[%s] " #format_string " \n", dbgtime,##__VA_ARGS__); \
+    fprintf(stderr,"[%s] [LOG SYS] " #format_string " \n", dbgtime,##__VA_ARGS__); \
 }
 
 enum ENUM_LOG_TYPE {

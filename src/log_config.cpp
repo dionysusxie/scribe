@@ -79,7 +79,7 @@ bool LogConfig::parseConfig(const string& filename) {
 	queue<string> config_strings;
 
 	if ( !readConfFile(filename, config_strings) ) {
-		LOG_TO_STDERR("[LOG] Failed to open log config file: <%s>", filename.c_str());
+		LOG_TO_STDERR("Failed to open log config file: <%s>", filename.c_str());
 		return false;
 	}
 
@@ -113,8 +113,8 @@ bool LogConfig::parseStore(queue<string>& raw_config) {
 		string::size_type eq = line.find('=');
 
 		if (eq == string::npos) {
-			LOG_TO_STDERR("Bad log config - line %s is missing an =", line.c_str());
-			continue;
+			LOG_TO_STDERR("Bad log config - line <%s> is missing an =", line.c_str());
+			return false;
 		}
 
 		string arg = line.substr(0, eq);
@@ -125,13 +125,13 @@ bool LogConfig::parseStore(queue<string>& raw_config) {
 		val = trimString(val);
 
 		if (arg.empty() || val.empty()) {
-			LOG_TO_STDERR("Bad log config - line %s is invalid!", line.c_str());
-			continue;
+			LOG_TO_STDERR("Bad log config - line <%s> is invalid!", line.c_str());
+			return false;
 		}
 
 		if (m_values.find(arg) != m_values.end()) {
 			LOG_TO_STDERR("Bad log config - duplicate key: %s", arg.c_str());
-			continue;
+			return false;
 		}
 
 		m_values[arg] = val;

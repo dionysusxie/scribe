@@ -45,13 +45,13 @@ bool LogSys::initialize(const string& config_file) {
 			s_pLogSys = boost::shared_ptr<LogSys>(new LogSys(config_file));
 
 			if (NULL == s_pLogSys) {
-				LOG_TO_STDERR("[LOG] Failed to creating the log system!");
+				LOG_TO_STDERR("Failed to creating the log system!");
 				return false;
 			}
 		}
 	}
 	catch( std::exception& ex ) {
-		LOG_TO_STDERR("[LOG] Exception: %s", ex.what());
+		LOG_TO_STDERR("Exception: %s", ex.what());
 		return false;
 	}
 
@@ -64,10 +64,10 @@ boost::shared_ptr<LogSys> LogSys::getInstance() {
 
 LogSys::LogSys(const string& config_file) throw (runtime_error) {
 
-	LOG_TO_STDERR("[LOG] Opening file <%s> to get log config...", config_file.c_str());
+	LOG_TO_STDERR("Opening file <%s> to get log config...", config_file.c_str());
 
 	if( ! m_LogConfig.parseConfig(config_file) ) {
-		runtime_error ex("[LOG] Failed to read the log config file!");
+		runtime_error ex("Errors happened when read the log config file!");
 		throw ex;
 	}
 
@@ -76,18 +76,18 @@ LogSys::LogSys(const string& config_file) throw (runtime_error) {
 
 	m_pLogger = Logger::createLoggerInterface( ENUM_LOG_TYPE(desti) );
 	if( NULL == m_pLogger ) {
-		runtime_error ex("[LOG] Failed to create the logger interface!");
+		runtime_error ex("Failed to create the logger interface!");
 		throw ex;
 	}
 
 	m_pLogger->config(m_LogConfig);
 
 	if( ! m_pLogger->open() ) {
-		runtime_error ex("[LOG] Failed to open log");
+		runtime_error ex("Failed to open log");
 		throw ex;
 	}
 
-	LOG_TO_STDERR("[LOG] Log system initialized OK!");
+	LOG_TO_STDERR("Log system initialized OK!");
 }
 
 LogSys::~LogSys() {
@@ -121,7 +121,7 @@ boost::shared_ptr<Logger> Logger::createLoggerInterface(const ENUM_LOG_TYPE type
 		break;
 
 	default:
-		runtime_error ex("[LOG] Wrong log type!");
+		runtime_error ex("Wrong log type!");
 		throw ex;
 		break;
 	}
@@ -212,16 +212,16 @@ bool FileLogger::open() {
 
 		if( !boost::filesystem::exists(m_FilePath) ) {
 			if( boost::filesystem::create_directories(m_FilePath) ) {
-				LOG_TO_STDERR("[LOG] Created log directory <%s>", m_FilePath.c_str());
+				LOG_TO_STDERR("Created log directory <%s>", m_FilePath.c_str());
 			}
 			else {
-				LOG_TO_STDERR("[LOG] Failed to created log directory <%s>", m_FilePath.c_str());
+				LOG_TO_STDERR("Failed to created log directory <%s>", m_FilePath.c_str());
 				return false;
 			}
 		}
 	}
 	catch (const std::exception& e) {
-		LOG_TO_STDERR("[LOG] Exception: %s", e.what());
+		LOG_TO_STDERR("Exception: %s", e.what());
 		return false;
 	}
 
@@ -232,11 +232,11 @@ bool FileLogger::open() {
 	m_File.open( getFullFileName().c_str(), mode );
 
 	if( !m_File.good() ) {
-		LOG_TO_STDERR("[LOG] Failed to open log file <%s>", getFullFileName().c_str());
+		LOG_TO_STDERR("Failed to open log file <%s>", getFullFileName().c_str());
 		return false;
 	}
 	else {
-		LOG_TO_STDERR("[LOG] Opened log file <%s>", getFullFileName().c_str());
+		LOG_TO_STDERR("Opened log file <%s>", getFullFileName().c_str());
 		return true;
 	}
 }
@@ -264,7 +264,7 @@ bool FileLogger::logImpl(const std::string& msg) {
 		}
 	}
 	catch (std::exception& ex) {
-		LOG_TO_STDERR("[LOG] Exception: %s", ex.what());
+		LOG_TO_STDERR("Exception: %s", ex.what());
 		return false;
 	}
 
@@ -372,7 +372,7 @@ bool RollingFileLogger::open() {
 
 	m_pFileLogger = boost::shared_ptr<FileLogger>( new FileLogger(m_FilePath, file_name, m_FileSuffix, getLevel(), Logger::m_MaxFlushNum, false) );
 	if( NULL == m_pFileLogger ) {
-		LOG_TO_STDERR("[LOG] Creating FileLogger failed! In RollingFileLogger::open()");
+		LOG_TO_STDERR("Creating FileLogger failed! In RollingFileLogger::open()");
 		return false;
 	}
 
@@ -405,7 +405,7 @@ bool RollingFileLogger::logImpl(const std::string& msg) {
 			return false;
 	}
 	catch (std::exception& ex) {
-		LOG_TO_STDERR("[LOG] Exception: %s", ex.what());
+		LOG_TO_STDERR("Exception: %s", ex.what());
 		return false;
 	}
 
