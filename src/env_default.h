@@ -61,7 +61,7 @@ extern void LOG_OUT(const std::string& log, const unsigned long level);
  * Logging
  */
 
-#define LOG_INNER(level, format_string, ...)								\
+#define LOG_IMPL(level, format_string, ...)									\
 {																			\
     time_t now;																\
     char dbgtime[26] ;														\
@@ -70,20 +70,16 @@ extern void LOG_OUT(const std::string& log, const unsigned long level);
     dbgtime[24] = '\0';														\
     																		\
     char str_log[ MAX_LOG_TEXT_LENGTH + 1 ];								\
-    int n = snprintf(str_log, sizeof(str_log), "[%s] " #format_string "\n", dbgtime, ##__VA_ARGS__); 	\
+    const int n = snprintf(str_log, sizeof(str_log), "[%s] " #format_string "\n", dbgtime, ##__VA_ARGS__); 	\
     																		\
 	if(n >= 0) {															\
 		if( (unsigned int)(n) < sizeof(str_log) ) {							\
 			LOG_OUT(str_log, level);										\
 		}																	\
-		else { 																\
-			char *pbuf = new char[n+1]; 									\
-			if( pbuf != NULL ) { 											\
-				snprintf(pbuf, n+1, "[%s] " #format_string "\n", dbgtime, ##__VA_ARGS__); 				\
-				LOG_OUT(pbuf, level);										\
-				delete[] pbuf;												\
-				pbuf = NULL;												\
-			}																\
+		else {																\
+			std::string msg(n+1, '\0'); 									\
+			snprintf(&msg[0], n+1, "[%s] " #format_string "\n", dbgtime, ##__VA_ARGS__); 					\
+			LOG_OUT(msg.c_str(), level);									\
 		} 																	\
 	}																		\
 }
@@ -99,7 +95,7 @@ extern void LOG_OUT(const std::string& log, const unsigned long level);
   }*/
 #define LOG_OPER(format_string,...)										\
 {																		\
-	LOG_INNER(0, format_string, ##__VA_ARGS__);							\
+	LOG_IMPL(0, format_string, ##__VA_ARGS__);							\
 }
 
 extern int debug_level;
@@ -117,7 +113,7 @@ extern int debug_level;
 #define LOG_DEBUG(format_string,...)						\
 { 															\
 	if (debug_level) {                 						\
-		LOG_INNER(~0, format_string, ##__VA_ARGS__);		\
+		LOG_IMPL(~0, format_string, ##__VA_ARGS__);			\
 	} 														\
 }
 
