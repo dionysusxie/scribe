@@ -1,7 +1,6 @@
 #include "log.h"
 #include <pthread.h>
 
-#define LOG_DEFAULT_CONFIG_FILE		"/usr/local/scribe/log_config.conf"
 #define LOG_DEFAULT_FILE_PATH		"/tmp/log"
 #define LOG_DEFAULT_FILE_BASENAME	"log"
 #define LOG_DEFAULT_FILE_SUFFIX		""		// no suffix by default
@@ -17,12 +16,7 @@
 
 
 bool LOG_SYS_INIT(const string& config_file) {
-	string f(config_file);
-
-	if( f.empty() )
-		f = LOG_DEFAULT_CONFIG_FILE;
-
-	return LogSys::initialize( f );
+	return LogSys::initialize( config_file );
 }
 
 void LOG_OUT(const string& log, const unsigned long level) {
@@ -64,12 +58,17 @@ boost::shared_ptr<LogSys> LogSys::getInstance() {
 
 LogSys::LogSys(const string& config_file) throw (runtime_error) {
 
-	LOG_TO_STDERR("Opening file <%s> to get log config...", config_file.c_str());
+    if( config_file.empty() ) {
+        LOG_TO_STDERR("No log cofig file specified, log to stderr!");
+    }
+    else {
+        LOG_TO_STDERR("Opening file <%s> to get log config...", config_file.c_str());
 
-	if( ! m_LogConfig.parseConfig(config_file) ) {
-		runtime_error ex("Errors happened when read the log config file!");
-		throw ex;
-	}
+        if( ! m_LogConfig.parseConfig(config_file) ) {
+            runtime_error ex("Errors happened when read the log config file!");
+            throw ex;
+        }
+    }
 
 	unsigned long desti = (unsigned long)TO_STDERR;
 	m_LogConfig.getUnsigned(TEXT_LOG_DESTINATION, desti);
