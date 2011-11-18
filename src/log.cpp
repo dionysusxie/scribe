@@ -1,5 +1,5 @@
-#include "log.h"
 #include <pthread.h>
+#include "log.h"
 
 #define LOG_DEFAULT_FILE_PATH		"/tmp/log"
 #define LOG_DEFAULT_FILE_BASENAME	"log"
@@ -19,7 +19,7 @@ bool LOG_SYS_INIT(const string& config_file) {
 	return LogSys::initialize( config_file );
 }
 
-void LOG_OUT(const string& log, const unsigned long level) {
+void LOG_OUT(const string& log, unsigned long level) {
 	if (LogSys::getInstance() != NULL)
 		LogSys::getInstance()->log(log, level);
 }
@@ -94,7 +94,7 @@ LogSys::~LogSys() {
 		m_pLogger->close();
 }
 
-void LogSys::log(const string& msg, const unsigned long level) {
+void LogSys::log(const string& msg, unsigned long level) {
 	if( m_pLogger )
 		m_pLogger->log(msg, level);
 }
@@ -104,7 +104,7 @@ void LogSys::log(const string& msg, const unsigned long level) {
 // calss Logger
 //
 
-boost::shared_ptr<Logger> Logger::createLoggerInterface(const ENUM_LOG_TYPE type) throw (runtime_error) {
+boost::shared_ptr<Logger> Logger::createLoggerInterface(ENUM_LOG_TYPE type) throw (runtime_error) {
 
 	switch(type) {
 	case TO_STDERR:
@@ -135,7 +135,7 @@ Logger::Logger():
 	m_NotFlushedNum(0) {
 }
 
-Logger::Logger(const unsigned long level, const unsigned long flush_num):
+Logger::Logger(unsigned long level, unsigned long flush_num):
 	m_Level(level),
 	m_MaxFlushNum(flush_num),
 	m_NotFlushedNum(0) {
@@ -152,7 +152,7 @@ bool Logger::config(const LogConfig& conf) {
 	return true;
 }
 
-bool Logger::log(const std::string& msg, const unsigned long level) {
+bool Logger::log(const std::string& msg, unsigned long level) {
 
 	if (level >= this->m_Level)
 		return logImpl(msg);
@@ -180,9 +180,9 @@ FileLogger::FileLogger():	// set the default value
 FileLogger::FileLogger(const string& path,
 		const string& base_name,
 		const string& suffix,
-		const unsigned long level,
-		const unsigned long flush_num,
-		const bool thread_safe):
+		unsigned long level,
+		unsigned long flush_num,
+		bool thread_safe):
 	Logger(level, flush_num),
 	m_FilePath(path),
 	m_FileBaseName(base_name),

@@ -37,7 +37,7 @@ enum ENUM_LOG_TYPE {
 
 
 bool LOG_SYS_INIT(const string& log_config_file);
-void LOG_OUT(const string& log, const unsigned long level);
+void LOG_OUT(const string& log, unsigned long level);
 
 class Logger;
 class RollingFileLogger;
@@ -50,7 +50,7 @@ public:
 
     virtual ~LogSys();
 
-    void log(const string& msg, const unsigned long level);
+    void log(const string& msg, unsigned long level);
 
 private:
     // static:
@@ -68,11 +68,11 @@ private:
 class Logger {
 public:
 	// static:
-    static boost::shared_ptr<Logger> createLoggerInterface(const ENUM_LOG_TYPE type) throw (runtime_error);
+    static boost::shared_ptr<Logger> createLoggerInterface(ENUM_LOG_TYPE type) throw (runtime_error);
 
     // constructor
     Logger();
-    Logger(const unsigned long level, const unsigned long flush_num);
+    Logger(unsigned long level, unsigned long flush_num);
 
     virtual ~Logger();
 
@@ -80,7 +80,7 @@ public:
     virtual bool open() = 0;
     virtual bool close() = 0;
 
-    bool log(const std::string& msg, const unsigned long level);
+    bool log(const std::string& msg, unsigned long level);
     unsigned long getLevel() const;
     
 protected:
@@ -104,9 +104,9 @@ public:
     FileLogger(const string& path,
     		const string& base_name,
     		const string& suffix,
-    		const unsigned long level,
-    		const unsigned long flush_num,
-    		const bool thread_safe );
+    		unsigned long level,
+    		unsigned long flush_num,
+    		bool thread_safe );
 
     virtual ~FileLogger();
 

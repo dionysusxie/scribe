@@ -48,7 +48,7 @@ const std::string scribeversion("2.2");
 #define DEFAULT_CONF_FILE_LOCATION "/usr/local/scribe/scribe.conf"
 #define MAX_LOG_TEXT_LENGTH  4096	// 4KB
 
-extern void LOG_OUT(const std::string& log, const unsigned long level);
+extern void LOG_OUT(const std::string& log, unsigned long level);
 
 /*
  * This file contains methods for handling tasks that depend
