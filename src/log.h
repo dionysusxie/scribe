@@ -11,11 +11,6 @@
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include "log_config.h"
 
-using namespace boost::interprocess;
-using namespace boost::filesystem;
-using namespace boost;
-using namespace std;
-
 
 // log to the stand error
 #define LOG_TO_STDERR(format_string,...)                             	\
@@ -35,9 +30,16 @@ enum ENUM_LOG_TYPE {
 	TO_MAX,
 };
 
+enum ENUM_LOG_LEVEL {
+    LOG_LEVEL_DEBUG = 0,
+    LOG_LEVEL_INFO,
+    LOG_LEVEL_WARNING,
+    LOG_LEVEL_ERROR,
+    LOG_LEVEL_MAX   // DEBUG <= level < MAX !
+};
 
 bool LOG_SYS_INIT(const string& log_config_file);
-void LOG_OUT(const string& log, unsigned long level);
+void LOG_OUT(const string& log, ENUM_LOG_LEVEL level);
 
 class Logger;
 class RollingFileLogger;
@@ -50,7 +52,8 @@ public:
 
     virtual ~LogSys();
 
-    void log(const string& msg, unsigned long level);
+    void log(const string& msg, ENUM_LOG_LEVEL level);
+    void setLevel(ENUM_LOG_LEVEL level);
 
 private:
     // static:
@@ -72,7 +75,7 @@ public:
 
     // constructor
     Logger();
-    Logger(unsigned long level, unsigned long flush_num);
+    Logger(ENUM_LOG_LEVEL level, unsigned long flush_num);
 
     virtual ~Logger();
 
@@ -80,13 +83,14 @@ public:
     virtual bool open() = 0;
     virtual bool close() = 0;
 
-    bool log(const std::string& msg, unsigned long level);
-    unsigned long getLevel() const;
+    bool log(const std::string& msg, ENUM_LOG_LEVEL level);
+    ENUM_LOG_LEVEL getLevel() const;
+    void setLevel(ENUM_LOG_LEVEL level);
     
 protected:
     virtual bool logImpl(const std::string& msg) = 0;
 
-    unsigned long m_Level;
+    ENUM_LOG_LEVEL m_Level;
 	unsigned long m_MaxFlushNum;
 	unsigned long m_NotFlushedNum;
 };
@@ -104,7 +108,7 @@ public:
     FileLogger(const string& path,
     		const string& base_name,
     		const string& suffix,
-    		unsigned long level,
+    		ENUM_LOG_LEVEL level,
     		unsigned long flush_num,
     		bool thread_safe );
 
@@ -130,7 +134,7 @@ private:
     std::fstream m_File;
 
     const bool m_IsThreadSafe;
-	interprocess_recursive_mutex m_Mutex;  	// the mutex
+	boost::interprocess::interprocess_recursive_mutex m_Mutex;  	// the mutex
 };
 
 
@@ -183,7 +187,7 @@ private:
     std::string m_FileSuffix;
 
     boost::shared_ptr<FileLogger> m_pFileLogger;	// Rolling file logger uses a "file logger" to write log
-	interprocess_recursive_mutex m_Mutex; 			// the mutex
+	boost::interprocess::interprocess_recursive_mutex m_Mutex; 			// the mutex
 	struct tm m_LastCreatedTime;
 };
 

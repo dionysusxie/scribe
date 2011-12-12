@@ -38,6 +38,7 @@
 
 #include "src/gen-cpp/scribe.h"
 #include "src/gen-cpp/BucketStoreMapping.h"
+#include "log.h"
 
 typedef boost::shared_ptr<scribe::thrift::LogEntry> logentry_ptr_t;
 typedef std::vector<logentry_ptr_t> logentry_vector_t;
@@ -48,7 +49,6 @@ const std::string scribeversion("2.2");
 #define DEFAULT_CONF_FILE_LOCATION "/usr/local/scribe/scribe.conf"
 #define MAX_LOG_TEXT_LENGTH  4096	// 4KB
 
-extern void LOG_OUT(const std::string& log, unsigned long level);
 
 /*
  * This file contains methods for handling tasks that depend
@@ -95,7 +95,7 @@ extern void LOG_OUT(const std::string& log, unsigned long level);
   }*/
 #define LOG_OPER(format_string,...)										\
 {																		\
-	LOG_IMPL(0, format_string, ##__VA_ARGS__);							\
+	LOG_IMPL(LOG_LEVEL_INFO, format_string, ##__VA_ARGS__);				\
 }
 
 extern int debug_level;
@@ -112,9 +112,7 @@ extern int debug_level;
   }*/
 #define LOG_DEBUG(format_string,...)						\
 { 															\
-	if (debug_level) {                 						\
-		LOG_IMPL(~0, format_string, ##__VA_ARGS__);			\
-	} 														\
+	LOG_IMPL(LOG_LEVEL_DEBUG, format_string, ##__VA_ARGS__);\
 }
 
 namespace scribe {

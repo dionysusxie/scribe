@@ -24,6 +24,7 @@
 int debug_level = 0;
 #include "common.h"
 #include "scribe_server.h"
+#include "log.h"
 
 using namespace apache::thrift::concurrency;
 
@@ -46,7 +47,6 @@ shared_ptr<scribeHandler> g_Handler;
 static string overall_category = "scribe_overall";
 static string log_separator = ":";
 
-extern bool LOG_SYS_INIT(const string&);
 
 void print_usage(const char* program_name) {
   cout << "Usage: " << program_name << " [-p port] [-c config_file] [-l log_config_file]" << endl;
@@ -111,6 +111,11 @@ int main(int argc, char **argv) {
     // initialize the log service
     if( !LOG_SYS_INIT(log_config_file) ) {
     	return -1;
+    }
+
+    // if "-d" has been given in the command line, we must output the debug messages
+    if(1 == debug_level) {
+        LogSys::getInstance()->setLevel(LOG_LEVEL_DEBUG);
     }
 
     // It's placed here because the log service isn't ready until now! by XL

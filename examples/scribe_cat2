@@ -57,7 +57,7 @@ elif len(sys.argv) == 6 and sys.argv[1] == '-h' and sys.argv[4] == '-l':
   loop_num = int(sys.argv[5])
   
 else:
-  sys.exit('usage (message is stdin): scribe_cat [-h host[:port]] category [-l loop_num]')
+  sys.exit('usage (message is stdin): scribe_cat2 [-h host[:port]] category [-l loop_num]')
 
 log_entry = scribe.LogEntry(category=category, message=sys.stdin.read())
 
@@ -79,3 +79,4 @@ while loop_num > 0:
         sys.exit("Unknown error code.")
         
 transport.close()
+    

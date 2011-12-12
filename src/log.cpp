@@ -4,22 +4,30 @@
 #define LOG_DEFAULT_FILE_PATH		"/tmp/log"
 #define LOG_DEFAULT_FILE_BASENAME	"log"
 #define LOG_DEFAULT_FILE_SUFFIX		""		// no suffix by default
-#define LOG_DEFAULT_LOGLEVEL		0
+const   ENUM_LOG_LEVEL LOG_DEFAULT_LOGLEVEL = LOG_LEVEL_INFO;
 #define LOG_DEFAULT_FLUSH_NUM		1
 
-#define TEXT_LOG_DESTINATION		"log_desti"
+#define TEXT_LOG_DESTINATION		"log_dest"
 #define TEXT_LOG_LEVEL				"log_level"
 #define TEXT_LOG_FILE_PATH			"file_path"
 #define TEXT_LOG_FILE_BASE_NAME		"file_base_name"
 #define TEXT_LOG_FILE_SUFFIX		"file_suffix"
 #define TEXT_LOG_FLUSH_NUM			"num_logs_to_flush"
 
+using namespace boost::interprocess;
+
+static const char* s_LogLevelNames[LOG_LEVEL_MAX] = {
+    "DEBUG",
+    "INFO",
+    "WARNING",
+    "ERROR",
+};
 
 bool LOG_SYS_INIT(const string& config_file) {
 	return LogSys::initialize( config_file );
 }
 
-void LOG_OUT(const string& log, unsigned long level) {
+void LOG_OUT(const string& log, ENUM_LOG_LEVEL level) {
 	if (LogSys::getInstance() != NULL)
 		LogSys::getInstance()->log(log, level);
 }
@@ -34,7 +42,6 @@ boost::shared_ptr<LogSys> LogSys::s_pLogSys;
 bool LogSys::initialize(const string& config_file) {
 
 	try{
-
 		if (NULL == s_pLogSys) {
 			s_pLogSys = boost::shared_ptr<LogSys>(new LogSys(config_file));
 
@@ -94,9 +101,14 @@ LogSys::~LogSys() {
 		m_pLogger->close();
 }
 
-void LogSys::log(const string& msg, unsigned long level) {
+void LogSys::log(const string& msg, ENUM_LOG_LEVEL level) {
 	if( m_pLogger )
 		m_pLogger->log(msg, level);
+}
+
+void LogSys::setLevel(ENUM_LOG_LEVEL level) {
+    if( m_pLogger )
+        m_pLogger->setLevel(level);
 }
 
 
@@ -135,7 +147,7 @@ Logger::Logger():
 	m_NotFlushedNum(0) {
 }
 
-Logger::Logger(unsigned long level, unsigned long flush_num):
+Logger::Logger(ENUM_LOG_LEVEL level, unsigned long flush_num):
 	m_Level(level),
 	m_MaxFlushNum(flush_num),
 	m_NotFlushedNum(0) {
@@ -146,13 +158,21 @@ Logger::~Logger() {
 }
 
 bool Logger::config(const LogConfig& conf) {
-	conf.getUnsigned(TEXT_LOG_LEVEL, m_Level);
+    // get log level
+    unsigned long int num = 0;
+	if(conf.getUnsigned(TEXT_LOG_LEVEL, num))
+	{
+	    if(num < static_cast<unsigned long int>(LOG_LEVEL_MAX))
+	        m_Level = static_cast<ENUM_LOG_LEVEL>(num);
+	}
+	LOG_TO_STDERR("Log level: %s", s_LogLevelNames[m_Level]);
+
 	conf.getUnsigned(TEXT_LOG_FLUSH_NUM, m_MaxFlushNum);
 
 	return true;
 }
 
-bool Logger::log(const std::string& msg, unsigned long level) {
+bool Logger::log(const std::string& msg, ENUM_LOG_LEVEL level) {
 
 	if (level >= this->m_Level)
 		return logImpl(msg);
@@ -160,8 +180,18 @@ bool Logger::log(const std::string& msg, unsigned long level) {
 		return false;
 }
 
-unsigned long Logger::getLevel() const {
+ENUM_LOG_LEVEL Logger::getLevel() const {
     return m_Level;
+}
+
+void Logger::setLevel(ENUM_LOG_LEVEL level) {
+    if(level >= LOG_LEVEL_MAX) {
+        LOG_TO_STDERR("Invalid log level!");
+    }
+    else if(m_Level != level) {
+        m_Level = level;
+        LOG_TO_STDERR("Log level has been reset to: %s", s_LogLevelNames[m_Level]);
+    }
 }
 
 
@@ -180,7 +210,7 @@ FileLogger::FileLogger():	// set the default value
 FileLogger::FileLogger(const string& path,
 		const string& base_name,
 		const string& suffix,
-		unsigned long level,
+		ENUM_LOG_LEVEL level,
 		unsigned long flush_num,
 		bool thread_safe):
 	Logger(level, flush_num),
