@@ -45,7 +45,7 @@ typedef std::vector<logentry_ptr_t> logentry_vector_t;
 typedef std::vector<std::pair<std::string, int> > server_vector_t;
 
 // scribe version
-const std::string scribeversion("2.2");
+const std::string scribeversion("2.2.0");
 #define DEFAULT_CONF_FILE_LOCATION "/usr/local/scribe/scribe.conf"
 #define MAX_LOG_TEXT_LENGTH  4096	// 4KB
 
