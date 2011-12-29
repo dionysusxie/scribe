@@ -22,9 +22,13 @@
 // @author Anthony Giardullo
 
 int debug_level = 0;
+
 #include "common.h"
 #include "scribe_server.h"
 #include "log.h"
+#include "carpenter_log.pb.h"
+#include "Base64.h"
+
 
 using namespace apache::thrift::concurrency;
 
@@ -479,8 +483,61 @@ ResultCode scribeHandler::Log(const vector<LogEntry>&  messages) {
       continue;
     }
 
-    // Log this message
-    addMessage(*msg_iter, store_list);
+    // testing codes for the git branch "scribekeeper_test":
+    if( msg_iter->category == "scribekeeper" ) {
+        int counter = 1;
+        istringstream is(msg_iter->message);
+        is >> counter;
+
+        for(int i = 0; i < counter; i++) {
+            LogEntry msg;
+            msg.category = "scribekeeper";
+            carpenter::RawLog log;
+            char strBuf[50];
+
+            // timestamp = 1
+            time_t raw_time = time(NULL);
+            raw_time -= rand() % (1*60*60); // set to random time in the last hour
+            log.set_timestamp(raw_time);
+
+            // LogType type = 2;
+            carpenter::LogType ty = static_cast<carpenter::LogType>( rand() % (carpenter::LogType_MAX) + 1 );
+            log.set_type(ty);
+
+            // optional string db_name = 3;
+            const int db_count = 10;    // smartmedia_0 ~ smartmedia_9
+            int index = rand() % db_count;
+            snprintf(strBuf, sizeof(strBuf), "smartmedia_%d", index);
+            log.set_db_name(strBuf);
+
+            // optional string channel_id = 11;
+            index = rand() % 20 + 100;  // 100 ~ 119
+            snprintf(strBuf, sizeof(strBuf), "%d", index);
+            log.set_channel_id(strBuf);
+
+            // optional string banner_id = 12;
+            index = rand() % 20 + 10000;  // 10000 ~ 10019
+            snprintf(strBuf, sizeof(strBuf), "%d", index);
+            log.set_banner_id(strBuf);
+
+            // optional string solution_id = 13;
+            index = rand() % 10 + 1;  // 1 ~ 10
+            snprintf(strBuf, sizeof(strBuf), "%d", index);
+            log.set_solution_id(strBuf);
+
+            // serializing & encode
+            string ss;
+            log.SerializeToString(&(ss));
+            msg.message = CBase64::encode(ss);
+
+            // add
+            addMessage(msg, store_list);
+        }
+    }
+    else {
+        // Log this message
+        addMessage(*msg_iter, store_list);
+    }
   }
 
   result = OK;
