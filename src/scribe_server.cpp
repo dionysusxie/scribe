@@ -52,6 +52,98 @@ static string overall_category = "scribe_overall";
 static string log_separator = ":";
 
 
+/////////////////////////////////////////////////////////////////
+// used in scribekeeper_test fork
+//
+void fillInRandomRawLog(LogEntry& msg) {
+    msg.category = "scribekeeper";
+
+    carpenter::RawLog log;
+    char strBuf[50];
+
+    // timestamp = 1
+    time_t raw_time = time(NULL);
+    raw_time -= rand() % (1*60*60); // set to random time in the last hour
+    log.set_timestamp(raw_time);
+
+    // LogType type = 2;
+    carpenter::LogType ty = static_cast<carpenter::LogType>( rand() % (carpenter::LogType_MAX) + 1 );
+    log.set_type(ty);
+
+    // optional string db_name = 3;
+    // smartmedia_0 ~ smartmedia_9
+    const int db_count = 10;
+    int index = rand() % db_count;
+    snprintf(strBuf, sizeof(strBuf), "smartmedia_%d", index);
+    log.set_db_name(strBuf);
+
+
+    // optional bool new_user = 4;
+    bool bb = (rand() % 2 == 0) ? true : false;
+    log.set_new_user(bb);
+
+    // optional string allyes_id = 5;
+    snprintf(strBuf, sizeof(strBuf), "%d", rand());
+    log.set_allyes_id(strBuf);
+
+    // optional string ip = 6;
+    snprintf(strBuf, sizeof(strBuf), "%d.%d.%d.%d",
+        rand() % 0x100, rand() % 0x100, rand() % 0x100, rand() % 0x100);
+    log.set_ip(strBuf);
+
+    // optional string request_url = 7;
+    log.set_request_url("http://smartmedia.allyes.com");
+
+    // optional string referrer = 8;
+    log.set_referrer("http://www.qq.com/cc/ccc/abcd.jsp");
+
+    // optional string user_agent = 9;
+    log.set_user_agent("Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_6; en-US) AppleWebKit/534.18 (KHTML like Gecko) Chrome/11.0.660.0 Safari/534.18");
+
+    // optional string language = 10;
+    log.set_language("zh-cn");
+
+    // optional string channel_id = 11;
+    index = rand() % 20 + 100;  // 100 ~ 119
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    log.set_channel_id(strBuf);
+
+    // optional string banner_id = 12;
+    index = rand() % 20 + 10000;  // 10000 ~ 10019
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    log.set_banner_id(strBuf);
+
+    // optional string solution_id = 13;
+    index = rand() % 10 + 1;  // 1 ~ 10
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    log.set_solution_id(strBuf);
+
+    // optional string target_url_id = 14;
+    log.set_target_url_id("0");
+
+    // optional string target_keywords = 15;
+    // not set
+
+    // optional string third_party_id = 16;
+    // not set
+
+    // optional .carpenter.AppType app_type = 17;
+    log.set_app_type(static_cast<carpenter::AppType>(rand() % (carpenter::AppType_MAX + 1)));
+
+    // optional uint64 selling_price = 18;
+    // not set
+
+    // optional string device_id = 19;
+    // not set
+
+    // serializing & encode
+    string ss;
+    log.SerializeToString(&(ss));
+    msg.message = CBase64::encode(ss);
+}
+/////////////////////////////////////////////////////////////////
+
+
 void print_usage(const char* program_name) {
   cout << "Usage: " << program_name << " [-p port] [-c config_file] [-l log_config_file]" << endl;
 }
@@ -139,6 +231,8 @@ int main(int argc, char **argv) {
     // seed random number generation with something reasonably unique
     srand(time(NULL) ^ getpid());
 
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
     g_Handler = shared_ptr<scribeHandler>(new scribeHandler(port, config_file));
     g_Handler->initialize();
 
@@ -148,6 +242,7 @@ int main(int argc, char **argv) {
     LOG_OPER("Exception in main: %s", e.what());
   }
 
+  google::protobuf::ShutdownProtobufLibrary();
   LOG_OPER("scribe server exiting");
   return 0;
 }
@@ -491,46 +586,7 @@ ResultCode scribeHandler::Log(const vector<LogEntry>&  messages) {
 
         for(int i = 0; i < counter; i++) {
             LogEntry msg;
-            msg.category = "scribekeeper";
-            carpenter::RawLog log;
-            char strBuf[50];
-
-            // timestamp = 1
-            time_t raw_time = time(NULL);
-            raw_time -= rand() % (1*60*60); // set to random time in the last hour
-            log.set_timestamp(raw_time);
-
-            // LogType type = 2;
-            carpenter::LogType ty = static_cast<carpenter::LogType>( rand() % (carpenter::LogType_MAX) + 1 );
-            log.set_type(ty);
-
-            // optional string db_name = 3;
-            const int db_count = 10;    // smartmedia_0 ~ smartmedia_9
-            int index = rand() % db_count;
-            snprintf(strBuf, sizeof(strBuf), "smartmedia_%d", index);
-            log.set_db_name(strBuf);
-
-            // optional string channel_id = 11;
-            index = rand() % 20 + 100;  // 100 ~ 119
-            snprintf(strBuf, sizeof(strBuf), "%d", index);
-            log.set_channel_id(strBuf);
-
-            // optional string banner_id = 12;
-            index = rand() % 20 + 10000;  // 10000 ~ 10019
-            snprintf(strBuf, sizeof(strBuf), "%d", index);
-            log.set_banner_id(strBuf);
-
-            // optional string solution_id = 13;
-            index = rand() % 10 + 1;  // 1 ~ 10
-            snprintf(strBuf, sizeof(strBuf), "%d", index);
-            log.set_solution_id(strBuf);
-
-            // serializing & encode
-            string ss;
-            log.SerializeToString(&(ss));
-            msg.message = CBase64::encode(ss);
-
-            // add
+            fillInRandomRawLog(msg);
             addMessage(msg, store_list);
         }
     }
@@ -597,6 +653,7 @@ void scribeHandler::shutdown() {
   stopStores();
   // calling stop to allow thrift to clean up client states and exit
   server->stop();
+  google::protobuf::ShutdownProtobufLibrary();
   scribe::stopServer();
 }
 

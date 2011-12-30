@@ -40,13 +40,26 @@ void protobuf_AssignDesc_carpenter_5flog_2eproto() {
       "carpenter_log.proto");
   GOOGLE_CHECK(file != NULL);
   RawLog_descriptor_ = file->message_type(0);
-  static const int RawLog_offsets_[6] = {
+  static const int RawLog_offsets_[19] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, timestamp_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, db_name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, new_user_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, allyes_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, ip_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, request_url_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, referrer_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, user_agent_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, language_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, channel_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, banner_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, solution_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, target_url_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, target_keywords_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, third_party_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, app_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, selling_price_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RawLog, device_id_),
   };
   RawLog_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -180,38 +193,45 @@ void protobuf_AddDesc_carpenter_5flog_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\023carpenter_log.proto\022\tcarpenter\"\226\001\n\006Raw"
+    "\n\023carpenter_log.proto\022\tcarpenter\"\254\003\n\006Raw"
     "Log\022\021\n\ttimestamp\030\001 \001(\004\022 \n\004type\030\002 \001(\0162\022.c"
-    "arpenter.LogType\022\017\n\007db_name\030\003 \001(\t\022\022\n\ncha"
-    "nnel_id\030\013 \001(\t\022\021\n\tbanner_id\030\014 \001(\t\022\023\n\013solu"
-    "tion_id\030\r \001(\t*\n\010\240\234\001\020\200\200\200\200\002\"\"\n\004Pair\022\013\n\003key"
-    "\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\337\003\n\010CSSawLog\022\"\n\007ra"
-    "w_log\030\001 \001(\0132\021.carpenter.RawLog\022\r\n\005count\030"
-    "\002 \001(\r\022\027\n\017v_advertiser_id\030\003 \001(\t\022\025\n\rv_solu"
-    "tion_id\030\004 \001(\t\022\025\n\rv_campaign_id\030\005 \001(\t\022\024\n\014"
-    "v_channel_id\030\006 \001(\t\022\032\n\022v_channel_group_id"
-    "\030\007 \001(\t\022\031\n\021v_channel_pool_id\030\010 \001(\t\022\023\n\013v_b"
-    "anner_id\030\t \001(\t\022\032\n\022v_parent_banner_id\030\n \001"
-    "(\t\022\031\n\021v_banner_group_id\030\013 \001(\t\022\030\n\020v_banne"
-    "r_pool_id\030\014 \001(\t\022&\n\rplacement_kvs\030\r \003(\0132\017"
-    ".carpenter.Pair\022\021\n\tregion_id\030\016 \001(\t\022\023\n\013la"
-    "nguage_id\030\017 \001(\t\022\r\n\005os_id\030\020 \001(\t\022\022\n\nbrowse"
-    "r_id\030\021 \001(\t\022\023\n\013operator_id\030\022 \001(\t\022\022\n\nis_ca"
-    "sting\030\023 \001(\010*\n\010\240\234\001\020\200\200\200\200\002\"\277\002\n\006SawLog\022\"\n\007ra"
-    "w_log\030\001 \001(\0132\021.carpenter.RawLog\022\030\n\020channe"
-    "l_group_id\030\002 \001(\t\022\027\n\017channel_pool_id\030\003 \001("
-    "\t\022\023\n\013v_banner_id\030\004 \001(\t\022\027\n\017banner_group_i"
-    "d\030\005 \001(\t\022\026\n\016banner_pool_id\030\006 \001(\t\022\025\n\rv_sol"
-    "ution_id\030\007 \001(\t\022\023\n\013campaign_id\030\010 \001(\t\022\025\n\ra"
-    "dvertiser_id\030\t \001(\t\022\021\n\tregion_id\030\n \001(\t\022\023\n"
-    "\013language_id\030\013 \001(\t\022\r\n\005os_id\030\014 \001(\t\022\022\n\nbro"
-    "wser_id\030\r \001(\t*\n\010\240\234\001\020\200\200\200\200\002*2\n\016ThreeValueB"
-    "ool\022\013\n\007UNKNOWN\020\000\022\010\n\004TRUE\020\001\022\t\n\005FALSE\020\002*I\n"
-    "\007LogType\022\010\n\004SHOW\020\001\022\t\n\005CLICK\020\002\022\t\n\005TRACK\020\003"
-    "\022\013\n\007IDIGGER\020\004\022\021\n\rIDIGGER_EVENT\020\005*:\n\007AppT"
-    "ype\022\013\n\007BROWSER\020\000\022\016\n\nMOBILE_SDK\020\001\022\022\n\016MOBI"
-    "LE_BROWSER\020\002B%\n\024com.allyes.carpenterB\rCa"
-    "rpenterLogs", 1251);
+    "arpenter.LogType\022\017\n\007db_name\030\003 \001(\t\022\020\n\010new"
+    "_user\030\004 \001(\010\022\021\n\tallyes_id\030\005 \001(\t\022\n\n\002ip\030\006 \001"
+    "(\t\022\023\n\013request_url\030\007 \001(\t\022\020\n\010referrer\030\010 \001("
+    "\t\022\022\n\nuser_agent\030\t \001(\t\022\020\n\010language\030\n \001(\t\022"
+    "\022\n\nchannel_id\030\013 \001(\t\022\021\n\tbanner_id\030\014 \001(\t\022\023"
+    "\n\013solution_id\030\r \001(\t\022\025\n\rtarget_url_id\030\016 \001"
+    "(\t\022\027\n\017target_keywords\030\017 \001(\t\022\026\n\016third_par"
+    "ty_id\030\020 \001(\t\022$\n\010app_type\030\021 \001(\0162\022.carpente"
+    "r.AppType\022\025\n\rselling_price\030\022 \001(\004\022\021\n\tdevi"
+    "ce_id\030\023 \001(\t*\n\010\240\234\001\020\200\200\200\200\002\"\"\n\004Pair\022\013\n\003key\030\001"
+    " \002(\t\022\r\n\005value\030\002 \002(\t\"\337\003\n\010CSSawLog\022\"\n\007raw_"
+    "log\030\001 \001(\0132\021.carpenter.RawLog\022\r\n\005count\030\002 "
+    "\001(\r\022\027\n\017v_advertiser_id\030\003 \001(\t\022\025\n\rv_soluti"
+    "on_id\030\004 \001(\t\022\025\n\rv_campaign_id\030\005 \001(\t\022\024\n\014v_"
+    "channel_id\030\006 \001(\t\022\032\n\022v_channel_group_id\030\007"
+    " \001(\t\022\031\n\021v_channel_pool_id\030\010 \001(\t\022\023\n\013v_ban"
+    "ner_id\030\t \001(\t\022\032\n\022v_parent_banner_id\030\n \001(\t"
+    "\022\031\n\021v_banner_group_id\030\013 \001(\t\022\030\n\020v_banner_"
+    "pool_id\030\014 \001(\t\022&\n\rplacement_kvs\030\r \003(\0132\017.c"
+    "arpenter.Pair\022\021\n\tregion_id\030\016 \001(\t\022\023\n\013lang"
+    "uage_id\030\017 \001(\t\022\r\n\005os_id\030\020 \001(\t\022\022\n\nbrowser_"
+    "id\030\021 \001(\t\022\023\n\013operator_id\030\022 \001(\t\022\022\n\nis_cast"
+    "ing\030\023 \001(\010*\n\010\240\234\001\020\200\200\200\200\002\"\277\002\n\006SawLog\022\"\n\007raw_"
+    "log\030\001 \001(\0132\021.carpenter.RawLog\022\030\n\020channel_"
+    "group_id\030\002 \001(\t\022\027\n\017channel_pool_id\030\003 \001(\t\022"
+    "\023\n\013v_banner_id\030\004 \001(\t\022\027\n\017banner_group_id\030"
+    "\005 \001(\t\022\026\n\016banner_pool_id\030\006 \001(\t\022\025\n\rv_solut"
+    "ion_id\030\007 \001(\t\022\023\n\013campaign_id\030\010 \001(\t\022\025\n\radv"
+    "ertiser_id\030\t \001(\t\022\021\n\tregion_id\030\n \001(\t\022\023\n\013l"
+    "anguage_id\030\013 \001(\t\022\r\n\005os_id\030\014 \001(\t\022\022\n\nbrows"
+    "er_id\030\r \001(\t*\n\010\240\234\001\020\200\200\200\200\002*2\n\016ThreeValueBoo"
+    "l\022\013\n\007UNKNOWN\020\000\022\010\n\004TRUE\020\001\022\t\n\005FALSE\020\002*I\n\007L"
+    "ogType\022\010\n\004SHOW\020\001\022\t\n\005CLICK\020\002\022\t\n\005TRACK\020\003\022\013"
+    "\n\007IDIGGER\020\004\022\021\n\rIDIGGER_EVENT\020\005*:\n\007AppTyp"
+    "e\022\013\n\007BROWSER\020\000\022\016\n\nMOBILE_SDK\020\001\022\022\n\016MOBILE"
+    "_BROWSER\020\002B%\n\024com.allyes.carpenterB\rCarp"
+    "enterLogs", 1529);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "carpenter_log.proto", &protobuf_RegisterTypes);
   RawLog::default_instance_ = new RawLog();
@@ -283,16 +303,39 @@ bool AppType_IsValid(int value) {
 // ===================================================================
 
 const ::std::string RawLog::_default_db_name_;
+const ::std::string RawLog::_default_allyes_id_;
+const ::std::string RawLog::_default_ip_;
+const ::std::string RawLog::_default_request_url_;
+const ::std::string RawLog::_default_referrer_;
+const ::std::string RawLog::_default_user_agent_;
+const ::std::string RawLog::_default_language_;
 const ::std::string RawLog::_default_channel_id_;
 const ::std::string RawLog::_default_banner_id_;
 const ::std::string RawLog::_default_solution_id_;
+const ::std::string RawLog::_default_target_url_id_;
+const ::std::string RawLog::_default_target_keywords_;
+const ::std::string RawLog::_default_third_party_id_;
+const ::std::string RawLog::_default_device_id_;
 #ifndef _MSC_VER
 const int RawLog::kTimestampFieldNumber;
 const int RawLog::kTypeFieldNumber;
 const int RawLog::kDbNameFieldNumber;
+const int RawLog::kNewUserFieldNumber;
+const int RawLog::kAllyesIdFieldNumber;
+const int RawLog::kIpFieldNumber;
+const int RawLog::kRequestUrlFieldNumber;
+const int RawLog::kReferrerFieldNumber;
+const int RawLog::kUserAgentFieldNumber;
+const int RawLog::kLanguageFieldNumber;
 const int RawLog::kChannelIdFieldNumber;
 const int RawLog::kBannerIdFieldNumber;
 const int RawLog::kSolutionIdFieldNumber;
+const int RawLog::kTargetUrlIdFieldNumber;
+const int RawLog::kTargetKeywordsFieldNumber;
+const int RawLog::kThirdPartyIdFieldNumber;
+const int RawLog::kAppTypeFieldNumber;
+const int RawLog::kSellingPriceFieldNumber;
+const int RawLog::kDeviceIdFieldNumber;
 #endif  // !_MSC_VER
 
 RawLog::RawLog()
@@ -314,9 +357,22 @@ void RawLog::SharedCtor() {
   timestamp_ = GOOGLE_ULONGLONG(0);
   type_ = 1;
   db_name_ = const_cast< ::std::string*>(&_default_db_name_);
+  new_user_ = false;
+  allyes_id_ = const_cast< ::std::string*>(&_default_allyes_id_);
+  ip_ = const_cast< ::std::string*>(&_default_ip_);
+  request_url_ = const_cast< ::std::string*>(&_default_request_url_);
+  referrer_ = const_cast< ::std::string*>(&_default_referrer_);
+  user_agent_ = const_cast< ::std::string*>(&_default_user_agent_);
+  language_ = const_cast< ::std::string*>(&_default_language_);
   channel_id_ = const_cast< ::std::string*>(&_default_channel_id_);
   banner_id_ = const_cast< ::std::string*>(&_default_banner_id_);
   solution_id_ = const_cast< ::std::string*>(&_default_solution_id_);
+  target_url_id_ = const_cast< ::std::string*>(&_default_target_url_id_);
+  target_keywords_ = const_cast< ::std::string*>(&_default_target_keywords_);
+  third_party_id_ = const_cast< ::std::string*>(&_default_third_party_id_);
+  app_type_ = 0;
+  selling_price_ = GOOGLE_ULONGLONG(0);
+  device_id_ = const_cast< ::std::string*>(&_default_device_id_);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -328,6 +384,24 @@ void RawLog::SharedDtor() {
   if (db_name_ != &_default_db_name_) {
     delete db_name_;
   }
+  if (allyes_id_ != &_default_allyes_id_) {
+    delete allyes_id_;
+  }
+  if (ip_ != &_default_ip_) {
+    delete ip_;
+  }
+  if (request_url_ != &_default_request_url_) {
+    delete request_url_;
+  }
+  if (referrer_ != &_default_referrer_) {
+    delete referrer_;
+  }
+  if (user_agent_ != &_default_user_agent_) {
+    delete user_agent_;
+  }
+  if (language_ != &_default_language_) {
+    delete language_;
+  }
   if (channel_id_ != &_default_channel_id_) {
     delete channel_id_;
   }
@@ -336,6 +410,18 @@ void RawLog::SharedDtor() {
   }
   if (solution_id_ != &_default_solution_id_) {
     delete solution_id_;
+  }
+  if (target_url_id_ != &_default_target_url_id_) {
+    delete target_url_id_;
+  }
+  if (target_keywords_ != &_default_target_keywords_) {
+    delete target_keywords_;
+  }
+  if (third_party_id_ != &_default_third_party_id_) {
+    delete third_party_id_;
+  }
+  if (device_id_ != &_default_device_id_) {
+    delete device_id_;
   }
   if (this != default_instance_) {
   }
@@ -371,19 +457,76 @@ void RawLog::Clear() {
         db_name_->clear();
       }
     }
-    if (_has_bit(3)) {
+    new_user_ = false;
+    if (_has_bit(4)) {
+      if (allyes_id_ != &_default_allyes_id_) {
+        allyes_id_->clear();
+      }
+    }
+    if (_has_bit(5)) {
+      if (ip_ != &_default_ip_) {
+        ip_->clear();
+      }
+    }
+    if (_has_bit(6)) {
+      if (request_url_ != &_default_request_url_) {
+        request_url_->clear();
+      }
+    }
+    if (_has_bit(7)) {
+      if (referrer_ != &_default_referrer_) {
+        referrer_->clear();
+      }
+    }
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    if (_has_bit(8)) {
+      if (user_agent_ != &_default_user_agent_) {
+        user_agent_->clear();
+      }
+    }
+    if (_has_bit(9)) {
+      if (language_ != &_default_language_) {
+        language_->clear();
+      }
+    }
+    if (_has_bit(10)) {
       if (channel_id_ != &_default_channel_id_) {
         channel_id_->clear();
       }
     }
-    if (_has_bit(4)) {
+    if (_has_bit(11)) {
       if (banner_id_ != &_default_banner_id_) {
         banner_id_->clear();
       }
     }
-    if (_has_bit(5)) {
+    if (_has_bit(12)) {
       if (solution_id_ != &_default_solution_id_) {
         solution_id_->clear();
+      }
+    }
+    if (_has_bit(13)) {
+      if (target_url_id_ != &_default_target_url_id_) {
+        target_url_id_->clear();
+      }
+    }
+    if (_has_bit(14)) {
+      if (target_keywords_ != &_default_target_keywords_) {
+        target_keywords_->clear();
+      }
+    }
+    if (_has_bit(15)) {
+      if (third_party_id_ != &_default_third_party_id_) {
+        third_party_id_->clear();
+      }
+    }
+  }
+  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    app_type_ = 0;
+    selling_price_ = GOOGLE_ULONGLONG(0);
+    if (_has_bit(18)) {
+      if (device_id_ != &_default_device_id_) {
+        device_id_->clear();
       }
     }
   }
@@ -446,6 +589,124 @@ bool RawLog::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(32)) goto parse_new_user;
+        break;
+      }
+      
+      // optional bool new_user = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_new_user:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &new_user_)));
+          _set_bit(3);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(42)) goto parse_allyes_id;
+        break;
+      }
+      
+      // optional string allyes_id = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_allyes_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_allyes_id()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->allyes_id().data(), this->allyes_id().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(50)) goto parse_ip;
+        break;
+      }
+      
+      // optional string ip = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_ip:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_ip()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->ip().data(), this->ip().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(58)) goto parse_request_url;
+        break;
+      }
+      
+      // optional string request_url = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_request_url:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_request_url()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->request_url().data(), this->request_url().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(66)) goto parse_referrer;
+        break;
+      }
+      
+      // optional string referrer = 8;
+      case 8: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_referrer:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_referrer()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->referrer().data(), this->referrer().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(74)) goto parse_user_agent;
+        break;
+      }
+      
+      // optional string user_agent = 9;
+      case 9: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_user_agent:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_agent()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->user_agent().data(), this->user_agent().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(82)) goto parse_language;
+        break;
+      }
+      
+      // optional string language = 10;
+      case 10: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_language:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_language()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->language().data(), this->language().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectTag(90)) goto parse_channel_id;
         break;
       }
@@ -497,6 +758,111 @@ bool RawLog::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(114)) goto parse_target_url_id;
+        break;
+      }
+      
+      // optional string target_url_id = 14;
+      case 14: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_target_url_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_target_url_id()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->target_url_id().data(), this->target_url_id().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(122)) goto parse_target_keywords;
+        break;
+      }
+      
+      // optional string target_keywords = 15;
+      case 15: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_target_keywords:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_target_keywords()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->target_keywords().data(), this->target_keywords().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(130)) goto parse_third_party_id;
+        break;
+      }
+      
+      // optional string third_party_id = 16;
+      case 16: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_third_party_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_third_party_id()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->third_party_id().data(), this->third_party_id().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(136)) goto parse_app_type;
+        break;
+      }
+      
+      // optional .carpenter.AppType app_type = 17;
+      case 17: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_app_type:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (carpenter::AppType_IsValid(value)) {
+            set_app_type(static_cast< carpenter::AppType >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(17, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(144)) goto parse_selling_price;
+        break;
+      }
+      
+      // optional uint64 selling_price = 18;
+      case 18: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_selling_price:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &selling_price_)));
+          _set_bit(17);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(154)) goto parse_device_id;
+        break;
+      }
+      
+      // optional string device_id = 19;
+      case 19: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_device_id:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_device_id()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->device_id().data(), this->device_id().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -544,8 +910,67 @@ void RawLog::SerializeWithCachedSizes(
       3, this->db_name(), output);
   }
   
-  // optional string channel_id = 11;
+  // optional bool new_user = 4;
   if (_has_bit(3)) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->new_user(), output);
+  }
+  
+  // optional string allyes_id = 5;
+  if (_has_bit(4)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->allyes_id().data(), this->allyes_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      5, this->allyes_id(), output);
+  }
+  
+  // optional string ip = 6;
+  if (_has_bit(5)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->ip().data(), this->ip().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      6, this->ip(), output);
+  }
+  
+  // optional string request_url = 7;
+  if (_has_bit(6)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->request_url().data(), this->request_url().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      7, this->request_url(), output);
+  }
+  
+  // optional string referrer = 8;
+  if (_has_bit(7)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->referrer().data(), this->referrer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      8, this->referrer(), output);
+  }
+  
+  // optional string user_agent = 9;
+  if (_has_bit(8)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->user_agent().data(), this->user_agent().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      9, this->user_agent(), output);
+  }
+  
+  // optional string language = 10;
+  if (_has_bit(9)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->language().data(), this->language().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      10, this->language(), output);
+  }
+  
+  // optional string channel_id = 11;
+  if (_has_bit(10)) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->channel_id().data(), this->channel_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
@@ -554,7 +979,7 @@ void RawLog::SerializeWithCachedSizes(
   }
   
   // optional string banner_id = 12;
-  if (_has_bit(4)) {
+  if (_has_bit(11)) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->banner_id().data(), this->banner_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
@@ -563,12 +988,59 @@ void RawLog::SerializeWithCachedSizes(
   }
   
   // optional string solution_id = 13;
-  if (_has_bit(5)) {
+  if (_has_bit(12)) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->solution_id().data(), this->solution_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       13, this->solution_id(), output);
+  }
+  
+  // optional string target_url_id = 14;
+  if (_has_bit(13)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->target_url_id().data(), this->target_url_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      14, this->target_url_id(), output);
+  }
+  
+  // optional string target_keywords = 15;
+  if (_has_bit(14)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->target_keywords().data(), this->target_keywords().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      15, this->target_keywords(), output);
+  }
+  
+  // optional string third_party_id = 16;
+  if (_has_bit(15)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->third_party_id().data(), this->third_party_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      16, this->third_party_id(), output);
+  }
+  
+  // optional .carpenter.AppType app_type = 17;
+  if (_has_bit(16)) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      17, this->app_type(), output);
+  }
+  
+  // optional uint64 selling_price = 18;
+  if (_has_bit(17)) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(18, this->selling_price(), output);
+  }
+  
+  // optional string device_id = 19;
+  if (_has_bit(18)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->device_id().data(), this->device_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      19, this->device_id(), output);
   }
   
   // Extension range [20000, 536870912)
@@ -604,8 +1076,73 @@ void RawLog::SerializeWithCachedSizes(
         3, this->db_name(), target);
   }
   
-  // optional string channel_id = 11;
+  // optional bool new_user = 4;
   if (_has_bit(3)) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->new_user(), target);
+  }
+  
+  // optional string allyes_id = 5;
+  if (_has_bit(4)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->allyes_id().data(), this->allyes_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->allyes_id(), target);
+  }
+  
+  // optional string ip = 6;
+  if (_has_bit(5)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->ip().data(), this->ip().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->ip(), target);
+  }
+  
+  // optional string request_url = 7;
+  if (_has_bit(6)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->request_url().data(), this->request_url().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        7, this->request_url(), target);
+  }
+  
+  // optional string referrer = 8;
+  if (_has_bit(7)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->referrer().data(), this->referrer().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        8, this->referrer(), target);
+  }
+  
+  // optional string user_agent = 9;
+  if (_has_bit(8)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->user_agent().data(), this->user_agent().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        9, this->user_agent(), target);
+  }
+  
+  // optional string language = 10;
+  if (_has_bit(9)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->language().data(), this->language().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        10, this->language(), target);
+  }
+  
+  // optional string channel_id = 11;
+  if (_has_bit(10)) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->channel_id().data(), this->channel_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
@@ -615,7 +1152,7 @@ void RawLog::SerializeWithCachedSizes(
   }
   
   // optional string banner_id = 12;
-  if (_has_bit(4)) {
+  if (_has_bit(11)) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->banner_id().data(), this->banner_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
@@ -625,13 +1162,64 @@ void RawLog::SerializeWithCachedSizes(
   }
   
   // optional string solution_id = 13;
-  if (_has_bit(5)) {
+  if (_has_bit(12)) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->solution_id().data(), this->solution_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         13, this->solution_id(), target);
+  }
+  
+  // optional string target_url_id = 14;
+  if (_has_bit(13)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->target_url_id().data(), this->target_url_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        14, this->target_url_id(), target);
+  }
+  
+  // optional string target_keywords = 15;
+  if (_has_bit(14)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->target_keywords().data(), this->target_keywords().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        15, this->target_keywords(), target);
+  }
+  
+  // optional string third_party_id = 16;
+  if (_has_bit(15)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->third_party_id().data(), this->third_party_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        16, this->third_party_id(), target);
+  }
+  
+  // optional .carpenter.AppType app_type = 17;
+  if (_has_bit(16)) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      17, this->app_type(), target);
+  }
+  
+  // optional uint64 selling_price = 18;
+  if (_has_bit(17)) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(18, this->selling_price(), target);
+  }
+  
+  // optional string device_id = 19;
+  if (_has_bit(18)) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->device_id().data(), this->device_id().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        19, this->device_id(), target);
   }
   
   // Extension range [20000, 536870912)
@@ -669,6 +1257,55 @@ int RawLog::ByteSize() const {
           this->db_name());
     }
     
+    // optional bool new_user = 4;
+    if (has_new_user()) {
+      total_size += 1 + 1;
+    }
+    
+    // optional string allyes_id = 5;
+    if (has_allyes_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->allyes_id());
+    }
+    
+    // optional string ip = 6;
+    if (has_ip()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->ip());
+    }
+    
+    // optional string request_url = 7;
+    if (has_request_url()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->request_url());
+    }
+    
+    // optional string referrer = 8;
+    if (has_referrer()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->referrer());
+    }
+    
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // optional string user_agent = 9;
+    if (has_user_agent()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_agent());
+    }
+    
+    // optional string language = 10;
+    if (has_language()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->language());
+    }
+    
     // optional string channel_id = 11;
     if (has_channel_id()) {
       total_size += 1 +
@@ -688,6 +1325,49 @@ int RawLog::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->solution_id());
+    }
+    
+    // optional string target_url_id = 14;
+    if (has_target_url_id()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->target_url_id());
+    }
+    
+    // optional string target_keywords = 15;
+    if (has_target_keywords()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->target_keywords());
+    }
+    
+    // optional string third_party_id = 16;
+    if (has_third_party_id()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->third_party_id());
+    }
+    
+  }
+  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    // optional .carpenter.AppType app_type = 17;
+    if (has_app_type()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->app_type());
+    }
+    
+    // optional uint64 selling_price = 18;
+    if (has_selling_price()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->selling_price());
+    }
+    
+    // optional string device_id = 19;
+    if (has_device_id()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->device_id());
     }
     
   }
@@ -729,13 +1409,56 @@ void RawLog::MergeFrom(const RawLog& from) {
       set_db_name(from.db_name());
     }
     if (from._has_bit(3)) {
-      set_channel_id(from.channel_id());
+      set_new_user(from.new_user());
     }
     if (from._has_bit(4)) {
-      set_banner_id(from.banner_id());
+      set_allyes_id(from.allyes_id());
     }
     if (from._has_bit(5)) {
+      set_ip(from.ip());
+    }
+    if (from._has_bit(6)) {
+      set_request_url(from.request_url());
+    }
+    if (from._has_bit(7)) {
+      set_referrer(from.referrer());
+    }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    if (from._has_bit(8)) {
+      set_user_agent(from.user_agent());
+    }
+    if (from._has_bit(9)) {
+      set_language(from.language());
+    }
+    if (from._has_bit(10)) {
+      set_channel_id(from.channel_id());
+    }
+    if (from._has_bit(11)) {
+      set_banner_id(from.banner_id());
+    }
+    if (from._has_bit(12)) {
       set_solution_id(from.solution_id());
+    }
+    if (from._has_bit(13)) {
+      set_target_url_id(from.target_url_id());
+    }
+    if (from._has_bit(14)) {
+      set_target_keywords(from.target_keywords());
+    }
+    if (from._has_bit(15)) {
+      set_third_party_id(from.third_party_id());
+    }
+  }
+  if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    if (from._has_bit(16)) {
+      set_app_type(from.app_type());
+    }
+    if (from._has_bit(17)) {
+      set_selling_price(from.selling_price());
+    }
+    if (from._has_bit(18)) {
+      set_device_id(from.device_id());
     }
   }
   _extensions_.MergeFrom(from._extensions_);
@@ -765,9 +1488,22 @@ void RawLog::Swap(RawLog* other) {
     std::swap(timestamp_, other->timestamp_);
     std::swap(type_, other->type_);
     std::swap(db_name_, other->db_name_);
+    std::swap(new_user_, other->new_user_);
+    std::swap(allyes_id_, other->allyes_id_);
+    std::swap(ip_, other->ip_);
+    std::swap(request_url_, other->request_url_);
+    std::swap(referrer_, other->referrer_);
+    std::swap(user_agent_, other->user_agent_);
+    std::swap(language_, other->language_);
     std::swap(channel_id_, other->channel_id_);
     std::swap(banner_id_, other->banner_id_);
     std::swap(solution_id_, other->solution_id_);
+    std::swap(target_url_id_, other->target_url_id_);
+    std::swap(target_keywords_, other->target_keywords_);
+    std::swap(third_party_id_, other->third_party_id_);
+    std::swap(app_type_, other->app_type_);
+    std::swap(selling_price_, other->selling_price_);
+    std::swap(device_id_, other->device_id_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

@@ -179,6 +179,73 @@ class RawLog : public ::google::protobuf::Message {
   inline void set_db_name(const char* value, size_t size);
   inline ::std::string* mutable_db_name();
   
+  // optional bool new_user = 4;
+  inline bool has_new_user() const;
+  inline void clear_new_user();
+  static const int kNewUserFieldNumber = 4;
+  inline bool new_user() const;
+  inline void set_new_user(bool value);
+  
+  // optional string allyes_id = 5;
+  inline bool has_allyes_id() const;
+  inline void clear_allyes_id();
+  static const int kAllyesIdFieldNumber = 5;
+  inline const ::std::string& allyes_id() const;
+  inline void set_allyes_id(const ::std::string& value);
+  inline void set_allyes_id(const char* value);
+  inline void set_allyes_id(const char* value, size_t size);
+  inline ::std::string* mutable_allyes_id();
+  
+  // optional string ip = 6;
+  inline bool has_ip() const;
+  inline void clear_ip();
+  static const int kIpFieldNumber = 6;
+  inline const ::std::string& ip() const;
+  inline void set_ip(const ::std::string& value);
+  inline void set_ip(const char* value);
+  inline void set_ip(const char* value, size_t size);
+  inline ::std::string* mutable_ip();
+  
+  // optional string request_url = 7;
+  inline bool has_request_url() const;
+  inline void clear_request_url();
+  static const int kRequestUrlFieldNumber = 7;
+  inline const ::std::string& request_url() const;
+  inline void set_request_url(const ::std::string& value);
+  inline void set_request_url(const char* value);
+  inline void set_request_url(const char* value, size_t size);
+  inline ::std::string* mutable_request_url();
+  
+  // optional string referrer = 8;
+  inline bool has_referrer() const;
+  inline void clear_referrer();
+  static const int kReferrerFieldNumber = 8;
+  inline const ::std::string& referrer() const;
+  inline void set_referrer(const ::std::string& value);
+  inline void set_referrer(const char* value);
+  inline void set_referrer(const char* value, size_t size);
+  inline ::std::string* mutable_referrer();
+  
+  // optional string user_agent = 9;
+  inline bool has_user_agent() const;
+  inline void clear_user_agent();
+  static const int kUserAgentFieldNumber = 9;
+  inline const ::std::string& user_agent() const;
+  inline void set_user_agent(const ::std::string& value);
+  inline void set_user_agent(const char* value);
+  inline void set_user_agent(const char* value, size_t size);
+  inline ::std::string* mutable_user_agent();
+  
+  // optional string language = 10;
+  inline bool has_language() const;
+  inline void clear_language();
+  static const int kLanguageFieldNumber = 10;
+  inline const ::std::string& language() const;
+  inline void set_language(const ::std::string& value);
+  inline void set_language(const char* value);
+  inline void set_language(const char* value, size_t size);
+  inline ::std::string* mutable_language();
+  
   // optional string channel_id = 11;
   inline bool has_channel_id() const;
   inline void clear_channel_id();
@@ -209,6 +276,60 @@ class RawLog : public ::google::protobuf::Message {
   inline void set_solution_id(const char* value, size_t size);
   inline ::std::string* mutable_solution_id();
   
+  // optional string target_url_id = 14;
+  inline bool has_target_url_id() const;
+  inline void clear_target_url_id();
+  static const int kTargetUrlIdFieldNumber = 14;
+  inline const ::std::string& target_url_id() const;
+  inline void set_target_url_id(const ::std::string& value);
+  inline void set_target_url_id(const char* value);
+  inline void set_target_url_id(const char* value, size_t size);
+  inline ::std::string* mutable_target_url_id();
+  
+  // optional string target_keywords = 15;
+  inline bool has_target_keywords() const;
+  inline void clear_target_keywords();
+  static const int kTargetKeywordsFieldNumber = 15;
+  inline const ::std::string& target_keywords() const;
+  inline void set_target_keywords(const ::std::string& value);
+  inline void set_target_keywords(const char* value);
+  inline void set_target_keywords(const char* value, size_t size);
+  inline ::std::string* mutable_target_keywords();
+  
+  // optional string third_party_id = 16;
+  inline bool has_third_party_id() const;
+  inline void clear_third_party_id();
+  static const int kThirdPartyIdFieldNumber = 16;
+  inline const ::std::string& third_party_id() const;
+  inline void set_third_party_id(const ::std::string& value);
+  inline void set_third_party_id(const char* value);
+  inline void set_third_party_id(const char* value, size_t size);
+  inline ::std::string* mutable_third_party_id();
+  
+  // optional .carpenter.AppType app_type = 17;
+  inline bool has_app_type() const;
+  inline void clear_app_type();
+  static const int kAppTypeFieldNumber = 17;
+  inline carpenter::AppType app_type() const;
+  inline void set_app_type(carpenter::AppType value);
+  
+  // optional uint64 selling_price = 18;
+  inline bool has_selling_price() const;
+  inline void clear_selling_price();
+  static const int kSellingPriceFieldNumber = 18;
+  inline ::google::protobuf::uint64 selling_price() const;
+  inline void set_selling_price(::google::protobuf::uint64 value);
+  
+  // optional string device_id = 19;
+  inline bool has_device_id() const;
+  inline void clear_device_id();
+  static const int kDeviceIdFieldNumber = 19;
+  inline const ::std::string& device_id() const;
+  inline void set_device_id(const ::std::string& value);
+  inline void set_device_id(const char* value);
+  inline void set_device_id(const char* value, size_t size);
+  inline ::std::string* mutable_device_id();
+  
   GOOGLE_PROTOBUF_EXTENSION_ACCESSORS(RawLog)
   // @@protoc_insertion_point(class_scope:carpenter.RawLog)
  private:
@@ -220,17 +341,40 @@ class RawLog : public ::google::protobuf::Message {
   int type_;
   ::std::string* db_name_;
   static const ::std::string _default_db_name_;
+  bool new_user_;
+  ::std::string* allyes_id_;
+  static const ::std::string _default_allyes_id_;
+  ::std::string* ip_;
+  static const ::std::string _default_ip_;
+  ::std::string* request_url_;
+  static const ::std::string _default_request_url_;
+  ::std::string* referrer_;
+  static const ::std::string _default_referrer_;
+  ::std::string* user_agent_;
+  static const ::std::string _default_user_agent_;
+  ::std::string* language_;
+  static const ::std::string _default_language_;
   ::std::string* channel_id_;
   static const ::std::string _default_channel_id_;
   ::std::string* banner_id_;
   static const ::std::string _default_banner_id_;
   ::std::string* solution_id_;
   static const ::std::string _default_solution_id_;
+  ::std::string* target_url_id_;
+  static const ::std::string _default_target_url_id_;
+  ::std::string* target_keywords_;
+  static const ::std::string _default_target_keywords_;
+  ::std::string* third_party_id_;
+  static const ::std::string _default_third_party_id_;
+  int app_type_;
+  ::google::protobuf::uint64 selling_price_;
+  ::std::string* device_id_;
+  static const ::std::string _default_device_id_;
   friend void  protobuf_AddDesc_carpenter_5flog_2eproto();
   friend void protobuf_AssignDesc_carpenter_5flog_2eproto();
   friend void protobuf_ShutdownFile_carpenter_5flog_2eproto();
   
-  ::google::protobuf::uint32 _has_bits_[(6 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(19 + 31) / 32];
   
   // WHY DOES & HAVE LOWER PRECEDENCE THAN != !?
   inline bool _has_bit(int index) const {
@@ -968,42 +1112,310 @@ inline ::std::string* RawLog::mutable_db_name() {
   return db_name_;
 }
 
+// optional bool new_user = 4;
+inline bool RawLog::has_new_user() const {
+  return _has_bit(3);
+}
+inline void RawLog::clear_new_user() {
+  new_user_ = false;
+  _clear_bit(3);
+}
+inline bool RawLog::new_user() const {
+  return new_user_;
+}
+inline void RawLog::set_new_user(bool value) {
+  _set_bit(3);
+  new_user_ = value;
+}
+
+// optional string allyes_id = 5;
+inline bool RawLog::has_allyes_id() const {
+  return _has_bit(4);
+}
+inline void RawLog::clear_allyes_id() {
+  if (allyes_id_ != &_default_allyes_id_) {
+    allyes_id_->clear();
+  }
+  _clear_bit(4);
+}
+inline const ::std::string& RawLog::allyes_id() const {
+  return *allyes_id_;
+}
+inline void RawLog::set_allyes_id(const ::std::string& value) {
+  _set_bit(4);
+  if (allyes_id_ == &_default_allyes_id_) {
+    allyes_id_ = new ::std::string;
+  }
+  allyes_id_->assign(value);
+}
+inline void RawLog::set_allyes_id(const char* value) {
+  _set_bit(4);
+  if (allyes_id_ == &_default_allyes_id_) {
+    allyes_id_ = new ::std::string;
+  }
+  allyes_id_->assign(value);
+}
+inline void RawLog::set_allyes_id(const char* value, size_t size) {
+  _set_bit(4);
+  if (allyes_id_ == &_default_allyes_id_) {
+    allyes_id_ = new ::std::string;
+  }
+  allyes_id_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_allyes_id() {
+  _set_bit(4);
+  if (allyes_id_ == &_default_allyes_id_) {
+    allyes_id_ = new ::std::string;
+  }
+  return allyes_id_;
+}
+
+// optional string ip = 6;
+inline bool RawLog::has_ip() const {
+  return _has_bit(5);
+}
+inline void RawLog::clear_ip() {
+  if (ip_ != &_default_ip_) {
+    ip_->clear();
+  }
+  _clear_bit(5);
+}
+inline const ::std::string& RawLog::ip() const {
+  return *ip_;
+}
+inline void RawLog::set_ip(const ::std::string& value) {
+  _set_bit(5);
+  if (ip_ == &_default_ip_) {
+    ip_ = new ::std::string;
+  }
+  ip_->assign(value);
+}
+inline void RawLog::set_ip(const char* value) {
+  _set_bit(5);
+  if (ip_ == &_default_ip_) {
+    ip_ = new ::std::string;
+  }
+  ip_->assign(value);
+}
+inline void RawLog::set_ip(const char* value, size_t size) {
+  _set_bit(5);
+  if (ip_ == &_default_ip_) {
+    ip_ = new ::std::string;
+  }
+  ip_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_ip() {
+  _set_bit(5);
+  if (ip_ == &_default_ip_) {
+    ip_ = new ::std::string;
+  }
+  return ip_;
+}
+
+// optional string request_url = 7;
+inline bool RawLog::has_request_url() const {
+  return _has_bit(6);
+}
+inline void RawLog::clear_request_url() {
+  if (request_url_ != &_default_request_url_) {
+    request_url_->clear();
+  }
+  _clear_bit(6);
+}
+inline const ::std::string& RawLog::request_url() const {
+  return *request_url_;
+}
+inline void RawLog::set_request_url(const ::std::string& value) {
+  _set_bit(6);
+  if (request_url_ == &_default_request_url_) {
+    request_url_ = new ::std::string;
+  }
+  request_url_->assign(value);
+}
+inline void RawLog::set_request_url(const char* value) {
+  _set_bit(6);
+  if (request_url_ == &_default_request_url_) {
+    request_url_ = new ::std::string;
+  }
+  request_url_->assign(value);
+}
+inline void RawLog::set_request_url(const char* value, size_t size) {
+  _set_bit(6);
+  if (request_url_ == &_default_request_url_) {
+    request_url_ = new ::std::string;
+  }
+  request_url_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_request_url() {
+  _set_bit(6);
+  if (request_url_ == &_default_request_url_) {
+    request_url_ = new ::std::string;
+  }
+  return request_url_;
+}
+
+// optional string referrer = 8;
+inline bool RawLog::has_referrer() const {
+  return _has_bit(7);
+}
+inline void RawLog::clear_referrer() {
+  if (referrer_ != &_default_referrer_) {
+    referrer_->clear();
+  }
+  _clear_bit(7);
+}
+inline const ::std::string& RawLog::referrer() const {
+  return *referrer_;
+}
+inline void RawLog::set_referrer(const ::std::string& value) {
+  _set_bit(7);
+  if (referrer_ == &_default_referrer_) {
+    referrer_ = new ::std::string;
+  }
+  referrer_->assign(value);
+}
+inline void RawLog::set_referrer(const char* value) {
+  _set_bit(7);
+  if (referrer_ == &_default_referrer_) {
+    referrer_ = new ::std::string;
+  }
+  referrer_->assign(value);
+}
+inline void RawLog::set_referrer(const char* value, size_t size) {
+  _set_bit(7);
+  if (referrer_ == &_default_referrer_) {
+    referrer_ = new ::std::string;
+  }
+  referrer_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_referrer() {
+  _set_bit(7);
+  if (referrer_ == &_default_referrer_) {
+    referrer_ = new ::std::string;
+  }
+  return referrer_;
+}
+
+// optional string user_agent = 9;
+inline bool RawLog::has_user_agent() const {
+  return _has_bit(8);
+}
+inline void RawLog::clear_user_agent() {
+  if (user_agent_ != &_default_user_agent_) {
+    user_agent_->clear();
+  }
+  _clear_bit(8);
+}
+inline const ::std::string& RawLog::user_agent() const {
+  return *user_agent_;
+}
+inline void RawLog::set_user_agent(const ::std::string& value) {
+  _set_bit(8);
+  if (user_agent_ == &_default_user_agent_) {
+    user_agent_ = new ::std::string;
+  }
+  user_agent_->assign(value);
+}
+inline void RawLog::set_user_agent(const char* value) {
+  _set_bit(8);
+  if (user_agent_ == &_default_user_agent_) {
+    user_agent_ = new ::std::string;
+  }
+  user_agent_->assign(value);
+}
+inline void RawLog::set_user_agent(const char* value, size_t size) {
+  _set_bit(8);
+  if (user_agent_ == &_default_user_agent_) {
+    user_agent_ = new ::std::string;
+  }
+  user_agent_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_user_agent() {
+  _set_bit(8);
+  if (user_agent_ == &_default_user_agent_) {
+    user_agent_ = new ::std::string;
+  }
+  return user_agent_;
+}
+
+// optional string language = 10;
+inline bool RawLog::has_language() const {
+  return _has_bit(9);
+}
+inline void RawLog::clear_language() {
+  if (language_ != &_default_language_) {
+    language_->clear();
+  }
+  _clear_bit(9);
+}
+inline const ::std::string& RawLog::language() const {
+  return *language_;
+}
+inline void RawLog::set_language(const ::std::string& value) {
+  _set_bit(9);
+  if (language_ == &_default_language_) {
+    language_ = new ::std::string;
+  }
+  language_->assign(value);
+}
+inline void RawLog::set_language(const char* value) {
+  _set_bit(9);
+  if (language_ == &_default_language_) {
+    language_ = new ::std::string;
+  }
+  language_->assign(value);
+}
+inline void RawLog::set_language(const char* value, size_t size) {
+  _set_bit(9);
+  if (language_ == &_default_language_) {
+    language_ = new ::std::string;
+  }
+  language_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_language() {
+  _set_bit(9);
+  if (language_ == &_default_language_) {
+    language_ = new ::std::string;
+  }
+  return language_;
+}
+
 // optional string channel_id = 11;
 inline bool RawLog::has_channel_id() const {
-  return _has_bit(3);
+  return _has_bit(10);
 }
 inline void RawLog::clear_channel_id() {
   if (channel_id_ != &_default_channel_id_) {
     channel_id_->clear();
   }
-  _clear_bit(3);
+  _clear_bit(10);
 }
 inline const ::std::string& RawLog::channel_id() const {
   return *channel_id_;
 }
 inline void RawLog::set_channel_id(const ::std::string& value) {
-  _set_bit(3);
+  _set_bit(10);
   if (channel_id_ == &_default_channel_id_) {
     channel_id_ = new ::std::string;
   }
   channel_id_->assign(value);
 }
 inline void RawLog::set_channel_id(const char* value) {
-  _set_bit(3);
+  _set_bit(10);
   if (channel_id_ == &_default_channel_id_) {
     channel_id_ = new ::std::string;
   }
   channel_id_->assign(value);
 }
 inline void RawLog::set_channel_id(const char* value, size_t size) {
-  _set_bit(3);
+  _set_bit(10);
   if (channel_id_ == &_default_channel_id_) {
     channel_id_ = new ::std::string;
   }
   channel_id_->assign(reinterpret_cast<const char*>(value), size);
 }
 inline ::std::string* RawLog::mutable_channel_id() {
-  _set_bit(3);
+  _set_bit(10);
   if (channel_id_ == &_default_channel_id_) {
     channel_id_ = new ::std::string;
   }
@@ -1012,40 +1424,40 @@ inline ::std::string* RawLog::mutable_channel_id() {
 
 // optional string banner_id = 12;
 inline bool RawLog::has_banner_id() const {
-  return _has_bit(4);
+  return _has_bit(11);
 }
 inline void RawLog::clear_banner_id() {
   if (banner_id_ != &_default_banner_id_) {
     banner_id_->clear();
   }
-  _clear_bit(4);
+  _clear_bit(11);
 }
 inline const ::std::string& RawLog::banner_id() const {
   return *banner_id_;
 }
 inline void RawLog::set_banner_id(const ::std::string& value) {
-  _set_bit(4);
+  _set_bit(11);
   if (banner_id_ == &_default_banner_id_) {
     banner_id_ = new ::std::string;
   }
   banner_id_->assign(value);
 }
 inline void RawLog::set_banner_id(const char* value) {
-  _set_bit(4);
+  _set_bit(11);
   if (banner_id_ == &_default_banner_id_) {
     banner_id_ = new ::std::string;
   }
   banner_id_->assign(value);
 }
 inline void RawLog::set_banner_id(const char* value, size_t size) {
-  _set_bit(4);
+  _set_bit(11);
   if (banner_id_ == &_default_banner_id_) {
     banner_id_ = new ::std::string;
   }
   banner_id_->assign(reinterpret_cast<const char*>(value), size);
 }
 inline ::std::string* RawLog::mutable_banner_id() {
-  _set_bit(4);
+  _set_bit(11);
   if (banner_id_ == &_default_banner_id_) {
     banner_id_ = new ::std::string;
   }
@@ -1054,44 +1466,245 @@ inline ::std::string* RawLog::mutable_banner_id() {
 
 // optional string solution_id = 13;
 inline bool RawLog::has_solution_id() const {
-  return _has_bit(5);
+  return _has_bit(12);
 }
 inline void RawLog::clear_solution_id() {
   if (solution_id_ != &_default_solution_id_) {
     solution_id_->clear();
   }
-  _clear_bit(5);
+  _clear_bit(12);
 }
 inline const ::std::string& RawLog::solution_id() const {
   return *solution_id_;
 }
 inline void RawLog::set_solution_id(const ::std::string& value) {
-  _set_bit(5);
+  _set_bit(12);
   if (solution_id_ == &_default_solution_id_) {
     solution_id_ = new ::std::string;
   }
   solution_id_->assign(value);
 }
 inline void RawLog::set_solution_id(const char* value) {
-  _set_bit(5);
+  _set_bit(12);
   if (solution_id_ == &_default_solution_id_) {
     solution_id_ = new ::std::string;
   }
   solution_id_->assign(value);
 }
 inline void RawLog::set_solution_id(const char* value, size_t size) {
-  _set_bit(5);
+  _set_bit(12);
   if (solution_id_ == &_default_solution_id_) {
     solution_id_ = new ::std::string;
   }
   solution_id_->assign(reinterpret_cast<const char*>(value), size);
 }
 inline ::std::string* RawLog::mutable_solution_id() {
-  _set_bit(5);
+  _set_bit(12);
   if (solution_id_ == &_default_solution_id_) {
     solution_id_ = new ::std::string;
   }
   return solution_id_;
+}
+
+// optional string target_url_id = 14;
+inline bool RawLog::has_target_url_id() const {
+  return _has_bit(13);
+}
+inline void RawLog::clear_target_url_id() {
+  if (target_url_id_ != &_default_target_url_id_) {
+    target_url_id_->clear();
+  }
+  _clear_bit(13);
+}
+inline const ::std::string& RawLog::target_url_id() const {
+  return *target_url_id_;
+}
+inline void RawLog::set_target_url_id(const ::std::string& value) {
+  _set_bit(13);
+  if (target_url_id_ == &_default_target_url_id_) {
+    target_url_id_ = new ::std::string;
+  }
+  target_url_id_->assign(value);
+}
+inline void RawLog::set_target_url_id(const char* value) {
+  _set_bit(13);
+  if (target_url_id_ == &_default_target_url_id_) {
+    target_url_id_ = new ::std::string;
+  }
+  target_url_id_->assign(value);
+}
+inline void RawLog::set_target_url_id(const char* value, size_t size) {
+  _set_bit(13);
+  if (target_url_id_ == &_default_target_url_id_) {
+    target_url_id_ = new ::std::string;
+  }
+  target_url_id_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_target_url_id() {
+  _set_bit(13);
+  if (target_url_id_ == &_default_target_url_id_) {
+    target_url_id_ = new ::std::string;
+  }
+  return target_url_id_;
+}
+
+// optional string target_keywords = 15;
+inline bool RawLog::has_target_keywords() const {
+  return _has_bit(14);
+}
+inline void RawLog::clear_target_keywords() {
+  if (target_keywords_ != &_default_target_keywords_) {
+    target_keywords_->clear();
+  }
+  _clear_bit(14);
+}
+inline const ::std::string& RawLog::target_keywords() const {
+  return *target_keywords_;
+}
+inline void RawLog::set_target_keywords(const ::std::string& value) {
+  _set_bit(14);
+  if (target_keywords_ == &_default_target_keywords_) {
+    target_keywords_ = new ::std::string;
+  }
+  target_keywords_->assign(value);
+}
+inline void RawLog::set_target_keywords(const char* value) {
+  _set_bit(14);
+  if (target_keywords_ == &_default_target_keywords_) {
+    target_keywords_ = new ::std::string;
+  }
+  target_keywords_->assign(value);
+}
+inline void RawLog::set_target_keywords(const char* value, size_t size) {
+  _set_bit(14);
+  if (target_keywords_ == &_default_target_keywords_) {
+    target_keywords_ = new ::std::string;
+  }
+  target_keywords_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_target_keywords() {
+  _set_bit(14);
+  if (target_keywords_ == &_default_target_keywords_) {
+    target_keywords_ = new ::std::string;
+  }
+  return target_keywords_;
+}
+
+// optional string third_party_id = 16;
+inline bool RawLog::has_third_party_id() const {
+  return _has_bit(15);
+}
+inline void RawLog::clear_third_party_id() {
+  if (third_party_id_ != &_default_third_party_id_) {
+    third_party_id_->clear();
+  }
+  _clear_bit(15);
+}
+inline const ::std::string& RawLog::third_party_id() const {
+  return *third_party_id_;
+}
+inline void RawLog::set_third_party_id(const ::std::string& value) {
+  _set_bit(15);
+  if (third_party_id_ == &_default_third_party_id_) {
+    third_party_id_ = new ::std::string;
+  }
+  third_party_id_->assign(value);
+}
+inline void RawLog::set_third_party_id(const char* value) {
+  _set_bit(15);
+  if (third_party_id_ == &_default_third_party_id_) {
+    third_party_id_ = new ::std::string;
+  }
+  third_party_id_->assign(value);
+}
+inline void RawLog::set_third_party_id(const char* value, size_t size) {
+  _set_bit(15);
+  if (third_party_id_ == &_default_third_party_id_) {
+    third_party_id_ = new ::std::string;
+  }
+  third_party_id_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_third_party_id() {
+  _set_bit(15);
+  if (third_party_id_ == &_default_third_party_id_) {
+    third_party_id_ = new ::std::string;
+  }
+  return third_party_id_;
+}
+
+// optional .carpenter.AppType app_type = 17;
+inline bool RawLog::has_app_type() const {
+  return _has_bit(16);
+}
+inline void RawLog::clear_app_type() {
+  app_type_ = 0;
+  _clear_bit(16);
+}
+inline carpenter::AppType RawLog::app_type() const {
+  return static_cast< carpenter::AppType >(app_type_);
+}
+inline void RawLog::set_app_type(carpenter::AppType value) {
+  GOOGLE_DCHECK(carpenter::AppType_IsValid(value));
+  _set_bit(16);
+  app_type_ = value;
+}
+
+// optional uint64 selling_price = 18;
+inline bool RawLog::has_selling_price() const {
+  return _has_bit(17);
+}
+inline void RawLog::clear_selling_price() {
+  selling_price_ = GOOGLE_ULONGLONG(0);
+  _clear_bit(17);
+}
+inline ::google::protobuf::uint64 RawLog::selling_price() const {
+  return selling_price_;
+}
+inline void RawLog::set_selling_price(::google::protobuf::uint64 value) {
+  _set_bit(17);
+  selling_price_ = value;
+}
+
+// optional string device_id = 19;
+inline bool RawLog::has_device_id() const {
+  return _has_bit(18);
+}
+inline void RawLog::clear_device_id() {
+  if (device_id_ != &_default_device_id_) {
+    device_id_->clear();
+  }
+  _clear_bit(18);
+}
+inline const ::std::string& RawLog::device_id() const {
+  return *device_id_;
+}
+inline void RawLog::set_device_id(const ::std::string& value) {
+  _set_bit(18);
+  if (device_id_ == &_default_device_id_) {
+    device_id_ = new ::std::string;
+  }
+  device_id_->assign(value);
+}
+inline void RawLog::set_device_id(const char* value) {
+  _set_bit(18);
+  if (device_id_ == &_default_device_id_) {
+    device_id_ = new ::std::string;
+  }
+  device_id_->assign(value);
+}
+inline void RawLog::set_device_id(const char* value, size_t size) {
+  _set_bit(18);
+  if (device_id_ == &_default_device_id_) {
+    device_id_ = new ::std::string;
+  }
+  device_id_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* RawLog::mutable_device_id() {
+  _set_bit(18);
+  if (device_id_ == &_default_device_id_) {
+    device_id_ = new ::std::string;
+  }
+  return device_id_;
 }
 
 // -------------------------------------------------------------------
