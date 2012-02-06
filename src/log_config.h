@@ -3,6 +3,10 @@
  *
  *  Created on: 2011-10-25
  *      Author: xieliang
+ *
+ *  Note:
+ *  1、此文件应只用于 LOG 系统！
+ *  2、类 LogConfig 的输出都定向到 stderr。
  */
 
 #ifndef LOG_CONFIG_H_
