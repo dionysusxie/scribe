@@ -59,11 +59,12 @@ void fillInRandomRawLog(LogEntry& msg) {
     msg.category = "scribekeeper";
 
     carpenter::RawLog log;
-    char strBuf[50];
+    char strBuf[255];
 
     // timestamp = 1
+    static const unsigned int SECONDS_A_DAY = 24 * 60 * 60; // set to random time in the past 24 hours
     time_t raw_time = time(NULL);
-    raw_time -= rand() % (1*60*60); // set to random time in the last hour
+    raw_time -= rand() % SECONDS_A_DAY;
     log.set_timestamp(raw_time);
 
     // LogType type = 2;
@@ -83,7 +84,9 @@ void fillInRandomRawLog(LogEntry& msg) {
     log.set_new_user(bb);
 
     // optional string allyes_id = 5;
-    snprintf(strBuf, sizeof(strBuf), "%d", rand());
+    // 10000 ~ 10009
+    index = rand() % 10 + 10000;
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
     log.set_allyes_id(strBuf);
 
     // optional string ip = 6;
@@ -104,37 +107,61 @@ void fillInRandomRawLog(LogEntry& msg) {
     log.set_language("zh-cn");
 
     // optional string channel_id = 11;
-    index = rand() % 20 + 100;  // 100 ~ 119
+    // 20000 ~ 20009
+    index = rand() % 10 + 20000;
     snprintf(strBuf, sizeof(strBuf), "%d", index);
     log.set_channel_id(strBuf);
 
     // optional string banner_id = 12;
-    index = rand() % 20 + 10000;  // 10000 ~ 10019
+    // 30000 ~ 30009
+    index = rand() % 10 + 30000;
     snprintf(strBuf, sizeof(strBuf), "%d", index);
     log.set_banner_id(strBuf);
 
     // optional string solution_id = 13;
-    index = rand() % 10 + 1;  // 1 ~ 10
+    // 40000 ~ 40009
+    index = rand() % 10 + 40000;
     snprintf(strBuf, sizeof(strBuf), "%d", index);
     log.set_solution_id(strBuf);
 
     // optional string target_url_id = 14;
-    log.set_target_url_id("0");
+    // 50000 ~ 50009
+    index = rand() % 10 + 50000;
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    log.set_target_url_id(strBuf);
 
     // optional string target_keywords = 15;
-    // not set
+    // A ~ Z
+    static const int NUM_OF_CHARACTERS = 'Z' - 'A' + 1;
+    const char keyword = 'A' + rand() % NUM_OF_CHARACTERS;
+    strBuf[0] = keyword;
+    strBuf[1] = '\0';
+    log.set_target_keywords(strBuf);
+
 
     // optional string third_party_id = 16;
-    // not set
+    // 60000 ~ 60009
+    index = rand() % 10 + 60000;
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    log.set_third_party_id(strBuf);
+
 
     // optional .carpenter.AppType app_type = 17;
     log.set_app_type(static_cast<carpenter::AppType>(rand() % (carpenter::AppType_MAX + 1)));
 
+
     // optional uint64 selling_price = 18;
-    // not set
+    // 1 ~ 10
+    const unsigned long price = rand() % 10 + 1;
+    log.set_selling_price(price);
+
 
     // optional string device_id = 19;
-    // not set
+    // 70000 ~ 70009
+    index = rand() % 10 + 70000;
+    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    log.set_device_id(strBuf);
+
 
     // serializing & encode
     string ss;
