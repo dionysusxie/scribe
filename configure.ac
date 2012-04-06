@@ -8,7 +8,7 @@
 # DO NOT TOUCH EXCEPT TO CHANGE REV# IN AC_INIT
 
 AC_PREREQ(2.52)
-AC_INIT([scribe], [1.5.0])
+AC_INIT([scribe], [2.2.0])
 AC_CONFIG_MACRO_DIR([aclocal])
 AM_INIT_AUTOMAKE([foreign -Wall])
 # To install locally
