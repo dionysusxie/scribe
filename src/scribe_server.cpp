@@ -125,9 +125,8 @@ void fillInRandomRawLog(LogEntry& msg) {
     log.set_solution_id(strBuf);
 
     // optional string target_url_id = 14;
-    // 50000 ~ 50009
-    index = rand() % 10 + 50000;
-    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    // 200 chars
+    snprintf(strBuf, sizeof(strBuf), "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
     log.set_target_url_id(strBuf);
 
     // optional string target_keywords = 15;
