@@ -62,9 +62,9 @@ void fillInRandomRawLog(LogEntry& msg) {
     char strBuf[255];
 
     // timestamp = 1
-    static const unsigned int SECONDS_A_DAY = 24 * 60 * 60; // set to random time in the past 24 hours
+    static const unsigned int DELTA_SECONDS = 24 * 60 * 60; // set to random time in the past 24 hours
     time_t raw_time = time(NULL);
-    raw_time -= rand() % SECONDS_A_DAY;
+    raw_time -= rand() % DELTA_SECONDS;
     log.set_timestamp(raw_time);
 
     // LogType type = 2;
@@ -107,8 +107,8 @@ void fillInRandomRawLog(LogEntry& msg) {
     log.set_language("zh-cn");
 
     // optional string channel_id = 11;
-    // 20000 ~ 20009
-    index = rand() % 10 + 20000;
+    // 20000 ~ 29999
+    index = rand() % 10000 + 20000;
     snprintf(strBuf, sizeof(strBuf), "%d", index);
     log.set_channel_id(strBuf);
 
