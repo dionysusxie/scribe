@@ -62,13 +62,18 @@ void fillInRandomRawLog(LogEntry& msg) {
     char strBuf[255];
 
     // timestamp = 1
-    static const unsigned int DELTA_SECONDS = 24 * 60 * 60; // set to random time in the past 24 hours
+    static const unsigned int DELTA_SECONDS = 1 * 60 * 60; // set to random time in the past 1 hours
     time_t raw_time = time(NULL);
     raw_time -= rand() % DELTA_SECONDS;
     log.set_timestamp(raw_time);
 
     // LogType type = 2;
-    carpenter::LogType ty = static_cast<carpenter::LogType>( rand() % (carpenter::LogType_MAX) + 1 );
+    const int rand_i = rand() % 14 + 1;    // 1 ~ 14
+    carpenter::LogType ty;
+    if (rand_i <= 4)
+        ty = static_cast<carpenter::LogType>(rand_i + 1);   // 1 / 14
+    else
+        ty = carpenter::SHOW;   // 10 / 14
     log.set_type(ty);
 
     // optional string db_name = 3;
@@ -109,7 +114,7 @@ void fillInRandomRawLog(LogEntry& msg) {
     // optional string channel_id = 11;
     // 20000 ~ 29999
     index = rand() % 10000 + 20000;
-    snprintf(strBuf, sizeof(strBuf), "%d", index);
+    snprintf(strBuf, sizeof(strBuf), "%d_\\\":", index);
     log.set_channel_id(strBuf);
 
     // optional string banner_id = 12;
