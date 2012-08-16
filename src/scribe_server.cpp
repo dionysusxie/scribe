@@ -242,7 +242,7 @@ int main(int argc, char **argv) {
 
     // if "-d" has been given in the command line, we must output the debug messages
     if(1 == debug_level) {
-        LogSys::getInstance()->setLevel(LOG_LEVEL_DEBUG);
+        LOG_SET_LEVEL(LOG_LEVEL_DEBUG);
     }
 
     // It's placed here because the log service isn't ready until now! by XL
