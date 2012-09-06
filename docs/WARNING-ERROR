@@ -1,0 +1,14 @@
+                     scribe 警告与错误（WARNING & ERROR）
+
+一、配置文件配置有错时，报 ERROR。
+
+二、类 StoreQueue
+    任何在一个 model store 上不允许的操作，报 ERROR；
+    线程收到未知的命令时，报 ERROR；
+
+三、HdfsFile
+    连接 HDFS 失败时，报 ERROR；
+    创建“符号链接”失败时，报 WARNING;
+    HDFS 路径格式错误、端口号不合法时，报 ERROR；
+    不支持 HDFS 而使用时，报 ERROR；
+    
