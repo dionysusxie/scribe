@@ -23,9 +23,9 @@
 
 int debug_level = 0;
 
+#include <allyes-log.h>
 #include "common.h"
 #include "scribe_server.h"
-#include "log.h"
 #include "carpenter_log.pb.h"
 #include "Base64.h"
 

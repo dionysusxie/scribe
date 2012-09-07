@@ -20,6 +20,8 @@
 #ifndef SCRIBE_ENV
 #define SCRIBE_ENV
 
+#include <allyes-log.h>
+
 #include "thrift/protocol/TBinaryProtocol.h"
 #include "thrift/server/TNonblockingServer.h"
 #include "thrift/concurrency/ThreadManager.h"
@@ -38,7 +40,6 @@
 
 #include "src/gen-cpp/scribe.h"
 #include "src/gen-cpp/BucketStoreMapping.h"
-#include "log.h"
 
 typedef boost::shared_ptr<scribe::thrift::LogEntry> logentry_ptr_t;
 typedef std::vector<logentry_ptr_t> logentry_vector_t;

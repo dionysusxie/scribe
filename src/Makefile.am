@@ -51,17 +51,14 @@ if DEBUG
 endif
 
 
-LOG_LIB_DIR = $(srcdir)/log_lib
-
 # Set libraries external to this component.
-EXTERNAL_LIBS = -L$(thrift_home)/lib -L$(fb303_home)/lib -L$(hadoop_home)/lib -lfb303 -lthrift -lthriftnb
+EXTERNAL_LIBS = -L$(thrift_home)/lib -L$(fb303_home)/lib -L$(hadoop_home)/lib -lfb303 -lthrift -lthriftnb -lallyes-log
 EXTERNAL_LIBS += -levent -lpthread 
 EXTERNAL_LIBS += -lprotobuf -lz
 if USE_SCRIBE_HDFS
   EXTERNAL_LIBS += -lhdfs -ljvm
 endif
 EXTERNAL_LIBS += $(BOOST_LDFLAGS) $(BOOST_SYSTEM_LIB) $(BOOST_FILESYSTEM_LIB)
-EXTERNAL_LIBS += -L$(LOG_LIB_DIR) -lallyes-log
 
 # Section 2 ############################################################################
 # Set common flags recognized by automake.
@@ -76,7 +73,6 @@ AM_CPPFLAGS += -I$(fb303_home)/include/thrift/fb303
 AM_CPPFLAGS += -I$(hadoop_home)/include
 AM_CPPFLAGS += $(BOOST_CPPFLAGS)
 AM_CPPFLAGS += $(FB_CPPFLAGS) $(DEBUG_CPPFLAGS)
-AM_CPPFLAGS += -I$(LOG_LIB_DIR)
 
 #AM_LDFLAGS = $(BOOST_LDFLAGS) $(BOOST_SYSTEM_LIB) $(BOOST_FILESYSTEM_LIB)
 AM_LDFLAGS = 
