@@ -22,9 +22,9 @@
 // @author Anthony Giardullo
 
 int debug_level = 0;
+#include <allyes-log.h>
 #include "common.h"
 #include "scribe_server.h"
-#include "log.h"
 
 using namespace apache::thrift::concurrency;
 
