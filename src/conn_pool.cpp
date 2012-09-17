@@ -136,7 +136,7 @@ void ConnPool::closeCommon(const string &key) {
     }
   } else {
     // This can be bad. If one client double closes then other cleints are screwed
-    LOG_OPER("LOGIC ERROR: attempting to close connection <%s> that connPool has no entry for", key.c_str());
+    LOG_ERROR("LOGIC ERROR: attempting to close connection <%s> that connPool has no entry for", key.c_str());
   }
   pthread_mutex_unlock(&mapMutex);
 }

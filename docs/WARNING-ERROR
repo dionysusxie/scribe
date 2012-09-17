@@ -17,10 +17,18 @@
     设置“进程能够打开的最多文件数”失败时，报 WARNING；
     Category not a valid boost filename. 报 ERROR；
     所有在 main 函数中捕获的异常，报 ERROR；
-    当收到的 LOG 没有相匹配的 store 来处理时，报 WARNING；
+    当收到的 LOG 没有相匹配的 store 来处理时，报 ERROR；
     处理不过来时，报 WARNING；
     
     用 ./scribe_ctrl reload 重启 scribe 时，如果端口号发生变化，报 ERROR；因为新端口号不
     会起作用！
     
        
+FileStore:
+    打开文件时出错：ERROR, store.cpp, 703,717,727
+    写入数据时出错：WARNING
+    关闭文件时出错：无
+    旋转时：同“打开文件”
+    
+NetworkStore：
+    
