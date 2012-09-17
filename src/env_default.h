@@ -20,7 +20,7 @@
 #ifndef SCRIBE_ENV
 #define SCRIBE_ENV
 
-#include <allyes-log.h>
+#include "log/allyes-log.h"
 
 #include "thrift/protocol/TBinaryProtocol.h"
 #include "thrift/server/TNonblockingServer.h"
