@@ -62,7 +62,6 @@ const std::string scribeversion("2.2.0");
  * Logging
  */
 
-#define LOG_OPER(format_string, ...) LOG_INFO(format_string, ##__VA_ARGS__)
 extern int debug_level;
 
 
