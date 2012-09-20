@@ -26,7 +26,7 @@
        
 FileStore:
     打开文件时出错：ERROR, store.cpp, 703,717,727
-    写入数据时出错：WARNING
+    写入数据时出错：ERROR
     关闭文件时出错：无
     旋转时：同“打开文件”
     

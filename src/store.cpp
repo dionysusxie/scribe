@@ -881,7 +881,7 @@ bool FileStore::writeMessages(boost::shared_ptr<logentry_vector_t> messages,
       if ((current_size_buffered > max_write_size && maxSize != 0) ||
           messages->end() == iter + 1 ) {
         if (!write_file->write(write_buffer)) {
-          LOG_WARNING("[%s] File store failed to write (%lu) messages to file",
+          LOG_ERROR("[%s] File store failed to write (%lu) messages to file",
                    categoryHandled.c_str(), messages->size());
           setStatus("File write error");
           success = false;
@@ -902,7 +902,7 @@ bool FileStore::writeMessages(boost::shared_ptr<logentry_vector_t> messages,
       }
     }
   } catch (const std::exception& e) {
-    LOG_WARNING("[%s] File store failed to write. Exception: %s",
+    LOG_ERROR("[%s] File store failed to write. Exception: %s",
              categoryHandled.c_str(), e.what());
     success = false;
   }
